@@ -33,7 +33,8 @@ TEST(LatencyBudgetQos, DurationCheck)
 
 	const Publisher* publisher = requester.get_publisher();
 	const Subscriber* subscriber = requester.get_subscriber();
-    
+
     EXPECT_EQ(publisher->getAttributes().qos.m_latencyBudget.duration, latency_budget_pub);
     EXPECT_EQ(subscriber->getAttributes().qos.m_latencyBudget.duration, latency_budget_sub);
+
 }
