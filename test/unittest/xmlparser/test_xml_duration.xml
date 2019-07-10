@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <profiles>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> Unit test XML
+=======
+
+>>>>>>> Blackbox Test added to check code latencyBudget assignment
     <participant profile_name="test_participant_profile" is_default_profile="true">
         <rtps>
             <builtin>
@@ -34,7 +38,11 @@
         <qos>
             <latencyBudget>
                 <duration>
+<<<<<<< HEAD
                       <sec>10</sec>
+=======
+                    <sec>10</sec>
+>>>>>>> Blackbox Test added to check code latencyBudget assignment
                 </duration>
             </latencyBudget>
             <reliability>
@@ -96,4 +104,5 @@
         </qos>
         <historyMemoryPolicy>PREALLOCATED</historyMemoryPolicy>
     </subscriber>
+
 </profiles>
