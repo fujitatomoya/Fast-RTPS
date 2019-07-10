@@ -28,9 +28,6 @@
                 <reliability>
                     <kind>RELIABLE</kind>
                 </reliability>
-                <latencyBudget>
-                    <duration>10</duration>
-                </latencyBudget>
             </qos>
             <historyMemoryPolicy>PREALLOCATED</historyMemoryPolicy>
         </publisher>
