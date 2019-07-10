@@ -61,7 +61,6 @@ bool HelloWorldSubscriber::init()
     Rparam.qos.m_reliability.kind = RELIABLE_RELIABILITY_QOS;
     Rparam.qos.m_durability.kind = TRANSIENT_LOCAL_DURABILITY_QOS;
     Rparam.expectsInlineQos = true;
-    Rparam.qos.m_latencyBudget.duration.seconds = 10;
     mp_subscriber = Domain::createSubscriber(mp_participant,Rparam,(SubscriberListener*)&m_listener);
 
     if(mp_subscriber == nullptr)
