@@ -36,5 +36,4 @@ TEST(LatencyBudgetQos, DurationCheck)
 
     EXPECT_EQ(publisher->getAttributes().qos.m_latencyBudget.duration, latency_budget_pub);
     EXPECT_EQ(subscriber->getAttributes().qos.m_latencyBudget.duration, latency_budget_sub);
-
 }
