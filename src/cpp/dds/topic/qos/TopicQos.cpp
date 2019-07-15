@@ -17,34 +17,38 @@
  *
  */
 
-#include <fastdds/dds/topic/qos/TopicQos.hpp>
+#include <fastdds/topic/qos/TopicQos.hpp>
 
-using namespace eprosima::fastdds::dds;
+using namespace eprosima::fastdds;
 
-const TopicQos eprosima::fastdds::dds::TOPIC_QOS_DEFAULT;
+TopicQos eprosima::fastdds::TOPIC_QOS_DEFAULT;
 
-/* TODO: Implement this method
+TopicQos::TopicQos()
+{
+
+}
+
+TopicQos::~TopicQos()
+{
+
+}
+
 void TopicQos::setQos(const TopicQos& qos, bool first_time)
 {
     //TODO: Implement this function
     (void)qos;
     (void)first_time;
 }
-*/
 
-/* TODO: Implement this method
 bool TopicQos::checkQos() const
 {
     //TODO: Implement this function
     return true;
 }
-*/
 
-/* TODO: Implement this method
 bool TopicQos::canQosBeUpdated(const TopicQos& qos) const
 {
     //TODO: Implement this function
     (void)qos;
     return true;
 }
-*/
