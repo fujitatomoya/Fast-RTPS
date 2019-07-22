@@ -378,7 +378,7 @@ ReturnCode_t DomainParticipantImpl::set_default_subscriber_qos(
     }
     else if (qos.check_qos())
     {
-        default_sub_qos_.set_qos(qos, false);
+        default_sub_qos_.set_qos(qos, true);
         return ReturnCode_t::RETCODE_OK;
     }
     return ReturnCode_t::RETCODE_INCONSISTENT_POLICY;
