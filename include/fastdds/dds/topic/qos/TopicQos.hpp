@@ -20,7 +20,7 @@
 #ifndef _FASTDDS_TOPICQOS_HPP
 #define _FASTDDS_TOPICQOS_HPP
 
-#include <fastrtps/qos/QosPolicies.h>
+#include "../../../fastrtps/qos/QosPolicies.h"
 
 namespace eprosima {
 namespace fastdds {
@@ -75,8 +75,7 @@ public:
     //!Ownership Qos, NOT implemented in the library.
     fastrtps::OwnershipQosPolicy ownership;
 
-    bool operator ==(
-            const TopicQos& b) const
+    bool operator==(const TopicQos& b) const
     {
         return (this->topic_data == b.topic_data) &&
                (this->durability == b.durability) &&
@@ -114,7 +113,7 @@ public:
     */
 };
 
-extern const TopicQos TOPIC_QOS_DEFAULT;
+extern TopicQos TOPIC_QOS_DEFAULT;
 
 } // namespace dds
 } // namespace fastdds
