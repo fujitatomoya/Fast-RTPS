@@ -134,7 +134,7 @@ void PublisherImpl::PublisherWriterListener::on_publication_matched(
 
 void PublisherImpl::PublisherWriterListener::on_liveliness_lost(
         DataWriter* /*writer*/,
-        const fastrtps::LivelinessLostStatus &status)
+        const LivelinessLostStatus &status)
 {
     if (publisher_->listener_ != nullptr)
     {

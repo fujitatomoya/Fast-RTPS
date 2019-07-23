@@ -24,6 +24,7 @@
 #include <fastdds/rtps/common/InstanceHandle.h>
 #include <fastrtps/qos/DeadlineMissedStatus.h>
 #include <fastrtps/qos/IncompatibleQosStatus.hpp>
+#include <fastdds/dds/qos/BaseStatus.h>
 #include <fastrtps/types/TypesBase.h>
 
 using eprosima::fastrtps::types::ReturnCode_t;
@@ -197,8 +198,13 @@ public:
     bool dispose(
             void* data);
 
+<<<<<<< HEAD
     ReturnCode_t get_liveliness_lost_status(
             fastrtps::LivelinessLostStatus& status);
+=======
+    bool get_liveliness_lost_status(
+            LivelinessLostStatus& status);
+>>>>>>> Create BaseStatus struct and change those dds classes that uses the corresponding previous structures
 
     /* TODO
     bool get_offered_incompatible_qos_status(

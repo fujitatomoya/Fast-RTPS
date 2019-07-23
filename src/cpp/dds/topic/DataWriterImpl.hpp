@@ -35,9 +35,10 @@
 #include <fastrtps/qos/DeadlineMissedStatus.h>
 #include <fastrtps/qos/IncompatibleQosStatus.hpp>
 #include <fastrtps/qos/LivelinessLostStatus.h>
+#include <fastdds/dds/qos/BaseStatus.h>
 #include <fastrtps/types/TypesBase.h>
 
-using namespace eprosima::fastrtps::types;
+using eprosima::fastrtps::types::ReturnCode_t;
 
 namespace eprosima {
 namespace fastrtps{
@@ -176,7 +177,7 @@ public:
             void* data);
 
     ReturnCode_t get_liveliness_lost_status(
-            fastrtps::LivelinessLostStatus& status);
+            LivelinessLostStatus& status);
 
     /* TODO
     ReturnCode_t get_offered_incompatible_qos_status(

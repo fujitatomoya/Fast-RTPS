@@ -199,7 +199,7 @@ private:
 
             void on_liveliness_lost(
                     DataWriter* writer,
-                    const fastrtps::LivelinessLostStatus& status) override;
+                    const LivelinessLostStatus& status) override;
 
             PublisherImpl* publisher_;
     } publisher_listener_;

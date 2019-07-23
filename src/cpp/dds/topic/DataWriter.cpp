@@ -147,7 +147,7 @@ ReturnCode_t DataWriter::get_offered_deadline_missed_status(
 }
 
 ReturnCode_t DataWriter::get_liveliness_lost_status(
-        fastrtps::LivelinessLostStatus& status)
+        LivelinessLostStatus& status)
 {
     return impl_->get_liveliness_lost_status(status);
 }
