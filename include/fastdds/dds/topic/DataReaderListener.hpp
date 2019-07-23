@@ -23,7 +23,7 @@
 #include <fastrtps/qos/DeadlineMissedStatus.h>
 #include <fastrtps/qos/LivelinessChangedStatus.h>
 #include <fastrtps/qos/SampleRejectedStatus.hpp>
-#include <fastrtps/qos/IncompatibleQosStatus.hpp>
+#include <fastdds/dds/qos/IncompatibleQosStatus.hpp>
 #include <fastdds/dds/qos/SubscriptionMatchedStatus.h>
 #include <fastdds/dds/qos/BaseStatus.h>
 
@@ -114,7 +114,7 @@ class RTPS_DllAPI DataReaderListener
          */
         virtual void on_requested_incompatible_qos(
                 DataReader* reader,
-                const fastrtps::RequestedIncompatibleQosStatus& status)
+                const RequestedIncompatibleQosStatus& status)
         {
             (void)reader;
             (void)status;
