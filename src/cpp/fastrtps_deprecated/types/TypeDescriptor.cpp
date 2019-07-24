@@ -425,7 +425,6 @@ std::string TypeDescriptor::annotation_get_extensibility() const
     {
         std::string value;
         if (ann->get_value(value) == ReturnCode_t::RETCODE_OK)
-
         {
             return value;
         }

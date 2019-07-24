@@ -208,7 +208,7 @@ TEST_F(DynamicTypesTests, DynamicTypeBuilderFactory_unit_tests)
         data2 = DynamicDataFactory::get_instance()->create_copy(data);
         ASSERT_TRUE(data2->equals(data));
         ASSERT_TRUE(DynamicDataFactory::get_instance()->delete_data(data) == ReturnCode_t::RETCODE_OK);
-        ASSERT_TRUE(DynamicDataFactory::get_instance()->delete_data(data2) == ReturnCode_t::RETCODE_OK)
+        ASSERT_TRUE(DynamicDataFactory::get_instance()->delete_data(data2) == ReturnCode_t::RETCODE_OK);
 
         created_builder = DynamicTypeBuilderFactory::get_instance()->create_float32_builder();
         ASSERT_TRUE(created_builder != nullptr);
@@ -2910,6 +2910,7 @@ TEST_F(DynamicTypesTests, DynamicType_array_of_arrays_unit_tests)
         ASSERT_FALSE(data->get_wstring_value(wsTest, MEMBER_ID_INVALID) == ReturnCode_t::RETCODE_OK);
         std::string sEnumTest;
         ASSERT_FALSE(data->get_enum_value(sEnumTest, MEMBER_ID_INVALID) == ReturnCode_t::RETCODE_OK);
+
         // SERIALIZATION TEST
         ArrayArrayStruct seq;
         ArrayArrayStructPubSubType seqpb;
@@ -3489,6 +3490,7 @@ TEST_F(DynamicTypesTests, DynamicType_multi_structure_unit_tests)
         types::DynamicData* data3 = DynamicDataFactory::get_instance()->create_data(parent_struct_type);
         ASSERT_TRUE(pubsubType.deserialize(&static_payload, data3));
         ASSERT_TRUE(data3->equals(struct_data));
+
         ASSERT_TRUE(DynamicDataFactory::get_instance()->delete_data(data2) == ReturnCode_t::RETCODE_OK);
         ASSERT_TRUE(DynamicDataFactory::get_instance()->delete_data(data3) == ReturnCode_t::RETCODE_OK);
 

@@ -3643,7 +3643,6 @@ ReturnCode_t DynamicData::set_string_value(const std::string& value, MemberId id
             {
                 logError(DYN_TYPES, "Error setting string value. The given string is greather than the length limit.");
                 return ReturnCode_t::RETCODE_BAD_PARAMETER;
-
             }
         }
         else if (id != MEMBER_ID_INVALID)
@@ -4345,7 +4344,6 @@ ReturnCode_t DynamicData::insert_int16_value(
     {
         ReturnCode_t result = insert_sequence_data(outId);
         if (result == ReturnCode_t::RETCODE_OK)
-
         {
             result = set_int16_value(value, outId);
         }
@@ -4375,7 +4373,6 @@ ReturnCode_t DynamicData::insert_uint16_value(
     {
         logError(DYN_TYPES, "Error inserting data. The current kinds don't support this method");
         return ReturnCode_t::RETCODE_BAD_PARAMETER;
-
     }
 }
 
@@ -4715,7 +4712,6 @@ ReturnCode_t DynamicData::insert_sequence_data(MemberId& outId)
             DynamicData* new_element = DynamicDataFactory::get_instance()->create_data(type_->get_element_type());
             outId = static_cast<MemberId>(complex_values_.size());
             complex_values_.insert(std::make_pair(outId, new_element));
-
             return ReturnCode_t::RETCODE_OK;
 #else
             DynamicData* new_element = DynamicDataFactory::get_instance()->create_data(type_->get_element_type());
