@@ -81,14 +81,14 @@ public:
     /**
      * Initialize the PDP.
      * @param part Pointer to the RTPSParticipant.
+     * @param enableReader bool that indicates if DATA(p) reception should be activated
      * @return True on success
      */
     bool initPDP(
-            RTPSParticipantImpl* part);
+            RTPSParticipantImpl* part,
+            bool enableReader);
 
-    bool enable();
-
-    virtual bool init(RTPSParticipantImpl* part) = 0;
+    virtual bool initPDP(RTPSParticipantImpl* part) = 0;
 
     /**
      * Creates an initializes a new participant proxy from a DATA(p) raw info

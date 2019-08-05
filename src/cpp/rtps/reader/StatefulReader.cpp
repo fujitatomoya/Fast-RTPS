@@ -153,8 +153,11 @@ bool StatefulReader::matched_writer_add(
     add_persistence_guid(wdata.guid(), wdata.persistence_guid());
     initial_sequence = get_last_notified(wdata.guid());
 
+<<<<<<< HEAD
     wp->start(wdata, initial_sequence);
 
+=======
+>>>>>>> Feature/refactor reader writer [5911] (#590)
     matched_writers_.push_back(wp);
 
     if (liveliness_lease_duration_ < c_TimeInfinite)

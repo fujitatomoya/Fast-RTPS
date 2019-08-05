@@ -87,7 +87,7 @@ public:
      * @param part Pointer to the RTPSParticipant.
      * @return True on success
      */
-    bool init(RTPSParticipantImpl* part) override;
+    bool initPDP(RTPSParticipantImpl* part) override;
 
     /**
      * Creates an initializes a new participant proxy from a DATA(p) raw info
