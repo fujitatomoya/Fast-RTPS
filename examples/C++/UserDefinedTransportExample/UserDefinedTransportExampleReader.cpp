@@ -20,7 +20,6 @@
 using namespace eprosima::fastrtps;
 using namespace eprosima::fastrtps::rtps;
 
-
 my_ReaderListener::my_ReaderListener()
     : n_received(0)
 {}
