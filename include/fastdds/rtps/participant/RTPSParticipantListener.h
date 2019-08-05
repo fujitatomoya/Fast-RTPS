@@ -86,6 +86,7 @@ class RTPS_DllAPI RTPSParticipantListener
             (void)participant, (void)info;
         }
 
+<<<<<<< HEAD
         /*!
          * This method is called when a participant discovers a new Type
          * The ownership of all object belongs to the caller so if needs to be used after the
@@ -103,6 +104,8 @@ class RTPS_DllAPI RTPSParticipantListener
             (void)participant, (void)topic, (void)identifier, (void)object, (void)dyn_type;
         }
 
+=======
+>>>>>>> Feature/refactor reader writer [5911] (#590)
 };
 
 } // namespace rtps
