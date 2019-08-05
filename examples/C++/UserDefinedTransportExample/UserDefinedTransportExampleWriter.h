@@ -32,7 +32,9 @@ class my_WriterListener: public eprosima::fastrtps::rtps::WriterListener
 {
     public:
         my_WriterListener();
+
         ~my_WriterListener() override;
+
         void onWriterMatched(
                 eprosima::fastrtps::rtps::RTPSWriter* writer,
                 eprosima::fastrtps::rtps::MatchingInfo& info) override;

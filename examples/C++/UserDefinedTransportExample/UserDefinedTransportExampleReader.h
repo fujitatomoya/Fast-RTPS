@@ -32,6 +32,7 @@ class my_ReaderListener: public eprosima::fastrtps::rtps::ReaderListener
     public:
         int n_received;
         my_ReaderListener();
+
         ~my_ReaderListener() override;
         void onNewCacheChangeAdded(
                 eprosima::fastrtps::rtps::RTPSReader* reader,

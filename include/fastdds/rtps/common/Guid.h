@@ -26,10 +26,10 @@
 #include <cstring>
 #include <sstream>
 
-namespace eprosima{
-namespace fastrtps{
-namespace rtps{
 
+namespace eprosima {
+namespace fastrtps {
+namespace rtps {
 
 
 //!@brief Structure GuidPrefix_t, Guid Prefix of GUID_t.
@@ -49,7 +49,8 @@ struct RTPS_DllAPI GuidPrefix_t
      * Guid prefix constructor
      * @param guid Guid prefix
      */
-    GuidPrefix_t(octet guid[size])
+    GuidPrefix_t(
+            octet guid[size])
     {
         memcpy(value, guid, size);
     }
@@ -58,7 +59,8 @@ struct RTPS_DllAPI GuidPrefix_t
      * Guid prefix copy constructor.
      * @param g Guid prefix to copy the values from
      */
-    GuidPrefix_t(const GuidPrefix_t &g)
+    GuidPrefix_t(
+            const GuidPrefix_t &g)
     {
         memcpy(value, g.value, size);
     }
@@ -67,7 +69,8 @@ struct RTPS_DllAPI GuidPrefix_t
      * Guid prefix move constructor.
      * @param g Guid prefix to copy the values from
      */
-    GuidPrefix_t(GuidPrefix_t &&g)
+    GuidPrefix_t(
+            GuidPrefix_t &&g)
     {
         memmove(value, g.value, size);
     }
@@ -76,7 +79,8 @@ struct RTPS_DllAPI GuidPrefix_t
      * Guid prefix assignment operator
      * @param guidpre Guid prefix to copy the values from
      */
-    GuidPrefix_t& operator=(const GuidPrefix_t &guidpre)
+    GuidPrefix_t& operator =(
+            const GuidPrefix_t &guidpre)
     {
         memcpy(value, guidpre.value, size);
         return *this;
@@ -86,7 +90,8 @@ struct RTPS_DllAPI GuidPrefix_t
      * Guid prefix assignment operator
      * @param guidpre Guid prefix to copy the values from
      */
-    GuidPrefix_t& operator=(GuidPrefix_t &&guidpre)
+    GuidPrefix_t& operator =(
+            GuidPrefix_t &&guidpre)
     {
         memmove(value, guidpre.value, size);
         return *this;
@@ -104,7 +109,8 @@ struct RTPS_DllAPI GuidPrefix_t
      * @param prefix guid prefix to compare
      * @return True if the guid prefixes are equal
      */
-    bool operator==(const GuidPrefix_t& prefix) const
+    bool operator ==(
+            const GuidPrefix_t& prefix) const
     {
         return (memcmp(value, prefix.value, size) == 0);
     }
@@ -114,7 +120,8 @@ struct RTPS_DllAPI GuidPrefix_t
      * @param prefix Second guid prefix to compare
      * @return True if the guid prefixes are not equal
      */
-    bool operator!=(const GuidPrefix_t& prefix) const
+    bool operator !=(
+            const GuidPrefix_t& prefix) const
     {
         return (memcmp(value, prefix.value, size) != 0);
     }
@@ -123,7 +130,6 @@ struct RTPS_DllAPI GuidPrefix_t
 };
 
 const GuidPrefix_t c_GuidPrefix_Unknown;
-
 
 inline std::ostream& operator <<(
         std::ostream& output,
@@ -223,7 +229,8 @@ struct RTPS_DllAPI EntityId_t{
      * Main constructor.
      * @param id Entity id
      */
-    EntityId_t(uint32_t id)
+    EntityId_t(
+            uint32_t id)
     {
         uint32_t* aux = (uint32_t*)(value);
         *aux = id;
@@ -235,7 +242,8 @@ struct RTPS_DllAPI EntityId_t{
     /*!
      * @brief Copy constructor
      */
-    EntityId_t(const EntityId_t &id)
+    EntityId_t(
+            const EntityId_t &id)
     {
         memcpy(value, id.value, size);
     }
@@ -243,18 +251,21 @@ struct RTPS_DllAPI EntityId_t{
     /*!
      * @brief Move constructor
      */
-    EntityId_t(EntityId_t &&id)
+    EntityId_t(
+            EntityId_t &&id)
     {
         memmove(value, id.value, size);
     }
 
-    EntityId_t& operator =(const EntityId_t &id)
+    EntityId_t& operator =(
+            const EntityId_t &id)
     {
         memcpy(value, id.value, size);
         return *this;
     }
 
-    EntityId_t& operator =(EntityId_t&& id)
+    EntityId_t& operator =(
+            EntityId_t&& id)
     {
         memmove(value, id.value, size);
         return *this;
@@ -264,7 +275,8 @@ struct RTPS_DllAPI EntityId_t{
      * Assignment operator.
      * @param id Entity id to copy
      */
-    EntityId_t& operator =(uint32_t id)
+    EntityId_t& operator =(
+            uint32_t id)
     {
         uint32_t* aux = (uint32_t*)(value);
         *aux = id;
@@ -318,6 +330,7 @@ inline bool operator ==(
     {
         result = false;
     }
+
 #if !__BIG_ENDIAN__
     id1.reverse();
 #endif
@@ -467,7 +480,8 @@ struct RTPS_DllAPI GUID_t{
     /*!
      * Copy constructor.
      */
-    GUID_t(const GUID_t& g)
+    GUID_t(
+            const GUID_t& g)
         : guidPrefix(g.guidPrefix)
         , entityId(g.entityId)
     {
@@ -476,7 +490,8 @@ struct RTPS_DllAPI GUID_t{
     /*!
      * Move constructor.
      */
-    GUID_t(GUID_t&& g)
+    GUID_t(
+            GUID_t&& g)
         : guidPrefix(std::move(g.guidPrefix))
         , entityId(std::move(g.entityId))
     {
@@ -676,9 +691,9 @@ inline std::istream& operator >>(
 
 #endif
 
-}
-}
-}
+} //namespace rtps
+} //namespace fastrtps
+} //namespace eprosima
 
 namespace std {
 template <>
@@ -693,6 +708,5 @@ struct hash<eprosima::fastrtps::rtps::EntityId_t>
 };
 
 } // namespace std
-
 
 #endif /* _FASTDDS_RTPS_RTPS_GUID_H_ */
