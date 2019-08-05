@@ -276,7 +276,7 @@ public:
     uint32_t get_min_network_send_buffer_size() { return m_network_Factory.get_min_send_buffer_size(); }
 
     AsyncWriterThread& async_thread() { return async_thread_; }
-
+    
     /**
      * @brief Fills a new entityId if set to unknown, or checks if a entity already exists with that
      * entityId in other case.
