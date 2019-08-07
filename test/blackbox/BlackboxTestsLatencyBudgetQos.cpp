@@ -21,7 +21,6 @@ using namespace eprosima::fastrtps::rtps;
 
 TEST(LatencyBudgetQos, DurationCheck)
 {
-
 	LatencyBudgetReqRepHelloWorldRequester requester;
 
 	Duration_t latency_budget_pub(10);
