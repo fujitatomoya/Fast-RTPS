@@ -33,6 +33,7 @@
 
 #include <fastrtps/attributes/TopicAttributes.h>
 #include <fastdds/rtps/common/MatchingInfo.h>
+#include <fastdds/dds/core/status/SubscriptionMatchedStatus.hpp>
 
 #include <fastrtps/utils/StringMatching.h>
 #include <fastrtps/log/Log.h>
@@ -473,6 +474,12 @@ bool EDP::unpairWriterProxy(
                 info.status = REMOVED_MATCHING;
                 info.remoteEndpointGuid = writer_guid;
                 (*rit)->getListener()->onReaderMatched((*rit),info);
+
+                eprosima::fastdds::dds::SubscriptionMatchedStatus sub_info;
+                sub_info.current_count--;
+                sub_info.current_count_change--;
+                sub_info.last_publication_handle = writer_guid;
+                (*rit)->getListener()->onReaderMatched((*rit), sub_info);
             }
         }
     }
@@ -868,6 +875,12 @@ bool EDP::pairingReader(
                         info.status = MATCHED_MATCHING;
                         info.remoteEndpointGuid = wdatait->guid();
                         R->getListener()->onReaderMatched(R,info);
+
+                        eprosima::fastdds::dds::SubscriptionMatchedStatus sub_info;
+                        sub_info.current_count++;
+                        sub_info.current_count_change++;
+                        sub_info.last_publication_handle = wdatait->guid();
+                        R->getListener()->onReaderMatched(R, sub_info);
                     }
                 }
 #endif
@@ -889,6 +902,12 @@ bool EDP::pairingReader(
                         info.status = REMOVED_MATCHING;
                         info.remoteEndpointGuid = wdatait->guid();
                         R->getListener()->onReaderMatched(R,info);
+
+                        eprosima::fastdds::dds::SubscriptionMatchedStatus sub_info;
+                        sub_info.current_count--;
+                        sub_info.current_count_change--;
+                        sub_info.last_publication_handle = wdatait->guid();
+                        R->getListener()->onReaderMatched(R, sub_info);
                     }
                 }
             }
@@ -1163,6 +1182,12 @@ bool EDP::pairing_writer_proxy_with_any_local_reader(
                         info.status = MATCHED_MATCHING;
                         info.remoteEndpointGuid = wdata->guid();
                         (*rit)->getListener()->onReaderMatched((*rit),info);
+
+                        eprosima::fastdds::dds::SubscriptionMatchedStatus sub_info;
+                        sub_info.current_count++;
+                        sub_info.current_count_change++;
+                        sub_info.last_publication_handle = wdata->guid();
+                        (*rit)->getListener()->onReaderMatched((*rit), sub_info);
                     }
                 }
 #endif
@@ -1182,6 +1207,12 @@ bool EDP::pairing_writer_proxy_with_any_local_reader(
                         info.status = REMOVED_MATCHING;
                         info.remoteEndpointGuid = wdata->guid();
                         (*rit)->getListener()->onReaderMatched((*rit),info);
+
+                        eprosima::fastdds::dds::SubscriptionMatchedStatus sub_info;
+                        sub_info.current_count--;
+                        sub_info.current_count_change--;
+                        sub_info.last_publication_handle = wdata->guid();
+                        (*rit)->getListener()->onReaderMatched((*rit), sub_info);
                     }
                 }
             }
@@ -1235,6 +1266,12 @@ bool EDP::pairing_writer_proxy_with_local_reader(
                             info.status = REMOVED_MATCHING;
                             info.remoteEndpointGuid = wdata.guid();
                             (*rit)->getListener()->onReaderMatched((*rit),info);
+
+                            eprosima::fastdds::dds::SubscriptionMatchedStatus sub_info;
+                            sub_info.current_count--;
+                            sub_info.current_count_change--;
+                            sub_info.last_publication_handle = wdata.guid();
+                            (*rit)->getListener()->onReaderMatched((*rit), sub_info);
                         }
                     }
                 }
@@ -1270,6 +1307,12 @@ bool EDP::pairing_remote_writer_with_local_reader_after_security(
                     info.status = MATCHED_MATCHING;
                     info.remoteEndpointGuid = remote_writer_data.guid();
                     (*rit)->getListener()->onReaderMatched((*rit),info);
+
+                    eprosima::fastdds::dds::SubscriptionMatchedStatus sub_info;
+                    sub_info.current_count++;
+                    sub_info.current_count_change++;
+                    sub_info.last_publication_handle = remote_writer_data.guid();
+                    (*rit)->getListener()->onReaderMatched((*rit), sub_info);
                 }
 
                 return true;
