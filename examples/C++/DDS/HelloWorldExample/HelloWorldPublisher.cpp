@@ -86,7 +86,7 @@ HelloWorldPublisher::~HelloWorldPublisher()
 
 void HelloWorldPublisher::PubListener::on_publication_matched(
         eprosima::fastdds::dds::DataWriter*,
-        eprosima::fastdds::dds::PublicationMatchedStatus &info)
+        eprosima::fastrtps::rtps::MatchingInfo &info)
 {
     if(info.status == MATCHED_MATCHING)
     {

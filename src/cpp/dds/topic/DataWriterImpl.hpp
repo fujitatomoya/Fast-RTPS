@@ -34,7 +34,6 @@
 #include <fastdds/rtps/writer/WriterListener.h>
 #include <fastrtps/qos/DeadlineMissedStatus.h>
 #include <fastdds/dds/qos/IncompatibleQosStatus.hpp>
-#include <fastrtps/qos/LivelinessLostStatus.h>
 #include <fastdds/dds/qos/BaseStatus.h>
 #include <fastrtps/types/TypesBase.h>
 
@@ -232,10 +231,6 @@ private:
             void onWriterMatched(
                     fastrtps::rtps::RTPSWriter* writer,
                     fastrtps::rtps::MatchingInfo& info) override;
-
-            void onWriterMatched(
-                    fastrtps::rtps::RTPSWriter* writer,
-                    fastdds::dds::PublicationMatchedStatus& info);
 
             void onWriterChangeReceivedByAll(
                     fastrtps::rtps::RTPSWriter* writer,

@@ -191,7 +191,7 @@ private:
 
             void on_publication_matched(
                     DataWriter* writer,
-                    fastdds::dds::PublicationMatchedStatus& info) override;
+                    fastrtps::rtps::MatchingInfo& info) override;
 
             void on_offered_deadline_missed(
                 DataWriter* writer,

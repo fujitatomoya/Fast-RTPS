@@ -19,11 +19,8 @@
 #ifndef _FASTDDS_PUBLISHERLISTENER_HPP_
 #define _FASTDDS_PUBLISHERLISTENER_HPP_
 
-#include <fastdds/rtps/common/Types.h>
-#include <fastdds/rtps/common/MatchingInfo.h>
 #include <fastrtps/qos/DeadlineMissedStatus.h>
 #include <fastdds/dds/qos/BaseStatus.h>
-#include <fastdds/dds/qos/PublicationMatchedStatus.h>
 
 namespace eprosima {
 namespace fastdds {
@@ -48,7 +45,7 @@ public:
      */
     virtual void on_publication_matched(
             Publisher* pub,
-            PublicationMatchedStatus& info)
+            fastrtps::rtps::MatchingInfo& info)
     {
         (void)pub;
         (void)info;

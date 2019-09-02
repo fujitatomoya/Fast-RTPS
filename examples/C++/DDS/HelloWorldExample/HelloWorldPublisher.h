@@ -67,9 +67,8 @@ private:
         ~PubListener() override
         {}
 
-        void on_publication_matched(
-                eprosima::fastdds::dds::DataWriter* writer,
-                eprosima::fastdds::dds::PublicationMatchedStatus& info) override;
+        void on_publication_matched(eprosima::fastdds::dds::DataWriter* writer,
+                eprosima::fastrtps::rtps::MatchingInfo &info) override;
 
         int matched_;
 

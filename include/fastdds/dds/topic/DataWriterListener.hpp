@@ -23,7 +23,6 @@
 #include <fastdds/rtps/common/MatchingInfo.h>
 #include <fastrtps/qos/DeadlineMissedStatus.h>
 #include <fastdds/dds/qos/BaseStatus.h>
-#include <fastdds/dds/qos/PublicationMatchedStatus.h>
 
 namespace eprosima {
 namespace fastdds {
@@ -48,7 +47,7 @@ public:
      */
     virtual void on_publication_matched(
             DataWriter* writer,
-            PublicationMatchedStatus& info)
+            fastrtps::rtps::MatchingInfo& info)
     {
         (void)writer;
         (void)info;
