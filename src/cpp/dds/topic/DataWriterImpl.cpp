@@ -37,7 +37,6 @@
 #include <fastdds/rtps/builtin/liveliness/WLP.h>
 
 #include <functional>
-#include <iostream>
 
 using namespace eprosima::fastrtps;
 using namespace eprosima::fastrtps::rtps;
