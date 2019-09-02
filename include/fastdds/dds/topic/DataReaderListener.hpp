@@ -23,8 +23,8 @@
 #include <fastrtps/qos/DeadlineMissedStatus.h>
 #include <fastrtps/qos/LivelinessChangedStatus.h>
 #include <fastrtps/qos/SampleRejectedStatus.hpp>
+#include <fastrtps/rtps/common/MatchingInfo.h>
 #include <fastdds/dds/qos/IncompatibleQosStatus.hpp>
-#include <fastdds/dds/qos/SubscriptionMatchedStatus.h>
 #include <fastdds/dds/qos/BaseStatus.h>
 
 namespace eprosima {
@@ -62,7 +62,7 @@ class RTPS_DllAPI DataReaderListener
          */
         virtual void on_subscription_matched(
                 DataReader* reader,
-                SubscriptionMatchedStatus& info)
+                fastrtps::rtps::MatchingInfo& info)
         {
             (void)reader;
             (void)info;

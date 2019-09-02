@@ -211,7 +211,7 @@ private:
 
         void on_subscription_matched(
                 DataReader* reader,
-                fastdds::dds::SubscriptionMatchedStatus& info) override;
+                fastrtps::rtps::MatchingInfo& info) override;
 
         void on_requested_deadline_missed(
                 DataReader* reader,

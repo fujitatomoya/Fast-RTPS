@@ -83,7 +83,7 @@ HelloWorldSubscriber::~HelloWorldSubscriber()
 
 void HelloWorldSubscriber::SubListener::on_subscription_matched(
         eprosima::fastdds::dds::DataReader*,
-        eprosima::fastdds::dds::SubscriptionMatchedStatus& info)
+        eprosima::fastrtps::rtps::MatchingInfo& info)
 {
     if (info.status == MATCHED_MATCHING)
     {

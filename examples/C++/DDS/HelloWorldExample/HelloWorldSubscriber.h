@@ -68,7 +68,7 @@ private:
 
         void on_subscription_matched(
                 eprosima::fastdds::dds::DataReader* reader,
-                eprosima::fastdds::dds::SubscriptionMatchedStatus& info) override;
+                eprosima::fastrtps::rtps::MatchingInfo& info) override;
 
         HelloWorld hello_;
 
