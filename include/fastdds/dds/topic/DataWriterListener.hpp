@@ -22,7 +22,7 @@
 #include <fastdds/rtps/common/Types.h>
 #include <fastdds/rtps/common/MatchingInfo.h>
 #include <fastrtps/qos/DeadlineMissedStatus.h>
-#include <fastdds/dds/qos/BaseStatus.h>
+#include <fastdds/dds/qos/BaseStatus.hpp>
 
 namespace eprosima {
 namespace fastdds {

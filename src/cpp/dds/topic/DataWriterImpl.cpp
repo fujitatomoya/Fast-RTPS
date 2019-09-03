@@ -598,7 +598,7 @@ void DataWriterImpl::InnerDataWriterListener::onWriterChangeReceivedByAll(
 
 void DataWriterImpl::InnerDataWriterListener::on_liveliness_lost(
         fastrtps::rtps::RTPSWriter* /*writer*/,
-        const LivelinessLostStatus& status)
+        const fastrtps::LivelinessLostStatus& status)
 {
     LivelinessLostStatus liveliness_status;
     liveliness_status.total_count = status.total_count;

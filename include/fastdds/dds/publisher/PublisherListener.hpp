@@ -20,7 +20,7 @@
 #define _FASTDDS_PUBLISHERLISTENER_HPP_
 
 #include <fastrtps/qos/DeadlineMissedStatus.h>
-#include <fastdds/dds/qos/BaseStatus.h>
+#include <fastdds/dds/qos/BaseStatus.hpp>
 
 namespace eprosima {
 namespace fastdds {
