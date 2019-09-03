@@ -24,13 +24,12 @@
 
 namespace eprosima {
 namespace fastdds {
-namespace dds{
+namespace dds {
 
-typedef uint32_t QosPolicyId_t;
+using QosPolicyId_t = uint32_t;
 
 struct QosPolicyCount 
 {
-
     //! @brief The id of the policy
     QosPolicyId_t policy_id;
 

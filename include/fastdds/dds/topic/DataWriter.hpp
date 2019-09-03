@@ -21,8 +21,7 @@
 
 #include <fastdds/rtps/common/Time_t.h>
 #include <fastrtps/qos/DeadlineMissedStatus.h>
-#include <fastdds/dds/qos/IncompatibleQosStatus.hpp>
-#include <fastdds/dds/qos/BaseStatus.h>
+#include <fastdds/dds/qos/BaseStatus.hpp>
 #include <fastrtps/types/TypesBase.h>
 
 using eprosima::fastrtps::types::ReturnCode_t;
@@ -31,7 +30,6 @@ namespace eprosima {
 namespace fastrtps{
 
 class WriterQos;
-struct LivelinessLostStatus;
 class TopicAttributes;
 
 namespace rtps {
@@ -196,13 +194,8 @@ public:
     bool dispose(
             void* data);
 
-<<<<<<< HEAD
     ReturnCode_t get_liveliness_lost_status(
-            fastrtps::LivelinessLostStatus& status);
-=======
-    bool get_liveliness_lost_status(
             LivelinessLostStatus& status);
->>>>>>> Create BaseStatus struct and change those dds classes that uses the corresponding previous structures
 
     /* TODO
     bool get_offered_incompatible_qos_status(
