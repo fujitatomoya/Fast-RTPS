@@ -21,7 +21,7 @@
 
 #include <fastdds/rtps/common/Time_t.h>
 #include <fastrtps/qos/DeadlineMissedStatus.h>
-#include <fastdds/dds/qos/BaseStatus.hpp>
+#include <fastdds/dds/core/status/BaseStatus.hpp>
 #include <fastrtps/types/TypesBase.h>
 
 using eprosima::fastrtps::types::ReturnCode_t;

@@ -33,8 +33,8 @@
 
 #include <fastdds/rtps/writer/WriterListener.h>
 #include <fastrtps/qos/DeadlineMissedStatus.h>
-#include <fastdds/dds/qos/IncompatibleQosStatus.hpp>
-#include <fastdds/dds/qos/BaseStatus.hpp>
+#include <fastdds/dds/core/status/IncompatibleQosStatus.hpp>
+#include <fastdds/dds/core/status/BaseStatus.hpp>
 #include <fastrtps/types/TypesBase.h>
 
 using eprosima::fastrtps::types::ReturnCode_t;

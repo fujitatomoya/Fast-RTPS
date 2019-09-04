@@ -16,8 +16,8 @@
  * @file IncompatibleQosStatus.hpp
 */
 
-#ifndef _FASTRTPS_INCOMPATIBLE_QOS_STATUS_HPP_
-#define _FASTRTPS_INCOMPATIBLE_QOS_STATUS_HPP_
+#ifndef _FASTDDS_INCOMPATIBLE_QOS_STATUS_HPP_
+#define _FASTDDS_INCOMPATIBLE_QOS_STATUS_HPP_
 
 #include <cstdint>
 #include <vector>
@@ -64,4 +64,4 @@ using OfferedIncompatibleQosStatus = IncompatibleQosStatus;
 } //end of namespace fastdds
 } //end of namespace eprosima
 
-#endif // _FASTRTPS_INCOMPATIBLE_QOS_STATUS_HPP_
+#endif // _FASTDDS_INCOMPATIBLE_QOS_STATUS_HPP_
