@@ -113,7 +113,7 @@ public:
     */
 };
 
-extern TopicQos TOPIC_QOS_DEFAULT;
+extern const TopicQos TOPIC_QOS_DEFAULT;
 
 } // namespace dds
 } // namespace fastdds
