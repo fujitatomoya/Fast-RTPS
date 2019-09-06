@@ -22,7 +22,6 @@
 #include <fastrtps/fastrtps_dll.h>
 #include <fastrtps/qos/DeadlineMissedStatus.h>
 #include <fastrtps/qos/LivelinessChangedStatus.h>
-#include <fastrtps/rtps/common/MatchingInfo.h>
 
 namespace eprosima {
 namespace fastrtps {

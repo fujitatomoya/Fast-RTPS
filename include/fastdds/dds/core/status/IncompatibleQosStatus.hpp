@@ -38,7 +38,7 @@ struct QosPolicyCount
     int32_t count;
 };
 
-typedef std::vector<QosPolicyCount> QosPolicyCountSeq;
+using QosPolicyCountSeq = std::vector<QosPolicyCount>;
 
 //! @brief A struct storing the requested incompatible QoS status
 struct IncompatibleQosStatus
@@ -60,8 +60,8 @@ struct IncompatibleQosStatus
 using RequestedIncompatibleQosStatus = IncompatibleQosStatus;
 using OfferedIncompatibleQosStatus = IncompatibleQosStatus;
 
-} //end of namespace dds
-} //end of namespace fastdds
-} //end of namespace eprosima
+} //namespace dds
+} //namespace fastdds
+} //namespace eprosima
 
 #endif // _FASTDDS_INCOMPATIBLE_QOS_STATUS_HPP_

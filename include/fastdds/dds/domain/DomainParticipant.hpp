@@ -32,7 +32,6 @@ using eprosima::fastrtps::types::ReturnCode_t;
 
 namespace eprosima {
 namespace fastrtps {
-
 namespace rtps {
 
 class RTPSParticipant;
@@ -387,6 +386,6 @@ private:
 
 } // namespace dds
 } // namespace fastdds
-} /* namespace eprosima */
+} // namespace eprosima
 
 #endif /* _FASTDDS_DOMAIN_PARTICIPANT_HPP_ */

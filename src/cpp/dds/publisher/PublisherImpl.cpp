@@ -122,7 +122,8 @@ ReturnCode_t PublisherImpl::set_listener(
     return ReturnCode_t::RETCODE_OK;
 }
 
-void PublisherImpl::PublisherWriterListener::on_publication_matched(DataWriter* /*writer*/,
+void PublisherImpl::PublisherWriterListener::on_publication_matched(
+        DataWriter* /*writer*/,
         MatchingInfo &info)
 {
     if (publisher_->listener_ != nullptr)

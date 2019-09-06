@@ -16,8 +16,8 @@
  * @file BaseStatus.hpp
 */
 
-#ifndef _FASTRTPS_BASE_STATUS_HPP_
-#define _FASTRTPS_BASE_STATUS_HPP_
+#ifndef _FASTDDS_BASE_STATUS_HPP_
+#define _FASTDDS_BASE_STATUS_HPP_
 
 #include <cstdint>
 
@@ -41,4 +41,4 @@ using InconsistentTopicStatus = BaseStatus;
 } //end of namespace fastdds
 } //end of namespace eprosima
 
-#endif // _FASTRTPS_BASE_STATUS_HPP_
+#endif // _FASTDDS_BASE_STATUS_HPP_
