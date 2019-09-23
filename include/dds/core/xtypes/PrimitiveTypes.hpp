@@ -42,8 +42,8 @@ class TPrimitiveType : public TDynamicType<DELEGATE>
 public:
     TPrimitiveType()
         : DynamicType(
-                dynamic_type_traits<T>::TYPE_ID,
-                dynamic_type_traits<T>::NAME)
+                dynamic_type_traits<T>::NAME,
+                dynamic_type_traits<T>::TYPE_ID)
     {
     }
 };
