@@ -61,7 +61,6 @@ if(NOT ((MSVC OR MSVC_IDE) AND EPROSIMA_INSTALLER))
 
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/IPFinder.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/IPLocator.cpp
-            ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/eClock.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/md5.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/System.cpp
         )

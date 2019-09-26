@@ -386,7 +386,6 @@ private:
 
     //!Type Information
     xtypes::TypeInformation m_type_information;
-
 };
 
 } /* namespace rtps */

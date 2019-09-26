@@ -62,7 +62,6 @@ if(NOT ((MSVC OR MSVC_IDE) AND EPROSIMA_INSTALLER))
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/transport/UDPChannelResource.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/rtps/network/NetworkFactory.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/IPLocator.cpp
-            ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/eClock.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/rtps/common/Time_t.cpp
         )
 
@@ -78,7 +77,6 @@ if(NOT ((MSVC OR MSVC_IDE) AND EPROSIMA_INSTALLER))
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/transport/UDPChannelResource.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/rtps/network/NetworkFactory.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/IPLocator.cpp
-            ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/eClock.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/rtps/common/Time_t.cpp
         )
 
@@ -92,7 +90,6 @@ if(NOT ((MSVC OR MSVC_IDE) AND EPROSIMA_INSTALLER))
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/qos/ParameterTypes.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/IPFinder.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/IPLocator.cpp
-            ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/eClock.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/transport/TCPv4Transport.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/transport/TCPTransportInterface.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/transport/ChannelResource.cpp
@@ -132,7 +129,6 @@ if(NOT ((MSVC OR MSVC_IDE) AND EPROSIMA_INSTALLER))
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/qos/ParameterTypes.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/IPFinder.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/IPLocator.cpp
-            ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/eClock.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/transport/TCPv6Transport.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/transport/TCPTransportInterface.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/transport/ChannelResource.cpp
@@ -170,7 +166,6 @@ if(NOT ((MSVC OR MSVC_IDE) AND EPROSIMA_INSTALLER))
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/qos/ParameterTypes.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/IPFinder.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/IPLocator.cpp
-            ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/utils/eClock.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/transport/test_UDPv4Transport.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/transport/UDPv4Transport.cpp
             ${PROJECT_SOURCE_DIR}/src/cpp/fastrtps_deprecated/transport/UDPTransportInterface.cpp

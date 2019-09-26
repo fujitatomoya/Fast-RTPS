@@ -30,6 +30,7 @@ namespace eprosima {
 namespace fastrtps {
 namespace rtps {
 
+
 //!@brief Structure SequenceNumber_t, different for each change in the same writer.
 //!@ingroup COMMON_MODULE
 struct RTPS_DllAPI SequenceNumber_t

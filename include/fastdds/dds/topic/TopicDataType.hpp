@@ -37,7 +37,6 @@ namespace types {
 class TypeIdentifier;
 } // namespace types
 
-
 } // namesapace fastrtps
 
 namespace fastdds {

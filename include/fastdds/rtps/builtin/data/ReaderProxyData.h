@@ -366,7 +366,6 @@ private:
     TypeObjectV1 m_type;
     //!Type Information
     xtypes::TypeInformation m_type_information;
-
 };
 
 }
