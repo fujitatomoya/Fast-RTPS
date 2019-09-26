@@ -68,4 +68,3 @@ uint64_t eClock::intervalEnd()
 
 } // namespace fastrtps
 } // namespace eprosima
-
