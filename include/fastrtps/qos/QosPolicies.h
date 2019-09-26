@@ -54,7 +54,8 @@ public:
     virtual ~QosPolicy()
     {}
 
-    bool operator==(const QosPolicy& b) const
+    bool operator ==(
+            const QosPolicy& b) const
     {
         return (this->hasChanged == b.hasChanged) &&
                (this->m_sendAlways == b.m_sendAlways);
@@ -64,7 +65,10 @@ public:
      * Whether it should always be sent.
      * @return True if it should always be sent.
      */
-    virtual bool sendAlways() const {return m_sendAlways;}
+    virtual bool sendAlways() const
+    {
+        return m_sendAlways;
+    }
 
 protected:
     bool m_sendAlways;
@@ -113,7 +117,8 @@ public:
         }
     }
 
-    bool operator==(const DurabilityQosPolicy& b) const
+    bool operator ==(
+            const DurabilityQosPolicy& b) const
     {
         return (this->kind == b.kind) &&
                Parameter_t::operator==(b) &&
@@ -123,7 +128,8 @@ public:
     /**
     * Set kind from rtps layer equivalent
     */
-    inline void durabilityKind(const rtps::DurabilityKind_t new_kind)
+    inline void durabilityKind(
+            const rtps::DurabilityKind_t new_kind)
     {
         switch (new_kind)
         {
@@ -141,7 +147,8 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
 public:
     DurabilityQosPolicyKind_t kind;
@@ -164,11 +171,12 @@ public:
 
     virtual RTPS_DllAPI ~DeadlineQosPolicy(){}
 
-    bool operator==(const DeadlineQosPolicy& b) const
+    bool operator ==(
+            const DeadlineQosPolicy& b) const
     {
         return (this->period == b.period) &&
-               Parameter_t::operator==(b) &&
-               QosPolicy::operator==(b);
+               Parameter_t::operator ==(b) &&
+               QosPolicy::operator ==(b);
     }
 
     /**
@@ -176,7 +184,8 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
 public:
     Duration_t period;
@@ -197,7 +206,8 @@ public:
     {}
     virtual RTPS_DllAPI ~LatencyBudgetQosPolicy() {}
 
-    bool operator==(const LatencyBudgetQosPolicy& b) const
+    bool operator ==(
+            const LatencyBudgetQosPolicy& b) const
     {
         return (this->duration == b.duration) &&
                Parameter_t::operator==(b) &&
@@ -209,7 +219,8 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
 public:
     Duration_t duration;
@@ -239,16 +250,17 @@ class LivelinessQosPolicy : public Parameter_t, public QosPolicy
     friend class ParameterList;
 public:
     RTPS_DllAPI LivelinessQosPolicy()
-        : Parameter_t(PID_LIVELINESS,PARAMETER_KIND_LENGTH+PARAMETER_TIME_LENGTH),
-          QosPolicy(true),
-          kind(AUTOMATIC_LIVELINESS_QOS),
-          lease_duration(TIME_T_INFINITE_SECONDS, TIME_T_INFINITE_NANOSECONDS),
-          announcement_period(TIME_T_INFINITE_SECONDS, TIME_T_INFINITE_NANOSECONDS)
+        : Parameter_t(PID_LIVELINESS,PARAMETER_KIND_LENGTH+PARAMETER_TIME_LENGTH)
+        , QosPolicy(true)
+        , kind(AUTOMATIC_LIVELINESS_QOS)
+        , lease_duration(TIME_T_INFINITE_SECONDS, TIME_T_INFINITE_NANOSECONDS)
+        , announcement_period(TIME_T_INFINITE_SECONDS, TIME_T_INFINITE_NANOSECONDS)
     {}
 
     virtual RTPS_DllAPI ~LivelinessQosPolicy() {}
 
-    bool operator==(const LivelinessQosPolicy& b) const
+    bool operator ==(
+            const LivelinessQosPolicy& b) const
     {
         return (this->kind == b.kind) &&
                (this->lease_duration == b.lease_duration) &&
@@ -262,7 +274,8 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
 public:
     LivelinessQosPolicyKind kind;
@@ -286,16 +299,16 @@ class ReliabilityQosPolicy : public Parameter_t, public QosPolicy
     friend class ParameterList;
 public:
     RTPS_DllAPI ReliabilityQosPolicy()
-        : Parameter_t(PID_RELIABILITY,PARAMETER_KIND_LENGTH+PARAMETER_TIME_LENGTH),
-          QosPolicy(true), //indicate send always
-          kind(BEST_EFFORT_RELIABILITY_QOS),
-          // max_blocking_time = 100ms
-          max_blocking_time{0, 100000000}
+        : Parameter_t(PID_RELIABILITY,PARAMETER_KIND_LENGTH+PARAMETER_TIME_LENGTH)
+        , QosPolicy(true) //indicate send always
+        , kind(BEST_EFFORT_RELIABILITY_QOS)
+        , max_blocking_time{0, 100000000} // max_blocking_time = 100ms
     {}
 
     virtual RTPS_DllAPI ~ReliabilityQosPolicy() {}
 
-    bool operator==(const ReliabilityQosPolicy& b) const
+    bool operator ==(
+            const ReliabilityQosPolicy& b) const
     {
         return (this->kind == b.kind) &&
                (this->max_blocking_time == b.max_blocking_time) &&
@@ -308,7 +321,8 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
 public:
 
@@ -349,14 +363,15 @@ class OwnershipQosPolicy : public Parameter_t, public QosPolicy
     friend class ParameterList;
 public:
     RTPS_DllAPI OwnershipQosPolicy()
-        : Parameter_t(PID_OWNERSHIP,PARAMETER_KIND_LENGTH),
-          QosPolicy(true),
-          kind(SHARED_OWNERSHIP_QOS)
+        : Parameter_t(PID_OWNERSHIP,PARAMETER_KIND_LENGTH)
+        , QosPolicy(true)
+        , kind(SHARED_OWNERSHIP_QOS)
     {}
 
     virtual RTPS_DllAPI ~OwnershipQosPolicy() {}
 
-    bool operator==(const OwnershipQosPolicy& b) const
+    bool operator ==(
+            const OwnershipQosPolicy& b) const
     {
         return (this->kind == b.kind) &&
                Parameter_t::operator==(b) &&
@@ -368,7 +383,8 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
 public:
     OwnershipQosPolicyKind kind;
@@ -394,14 +410,15 @@ class DestinationOrderQosPolicy : public Parameter_t, public QosPolicy
     friend class ParameterList;
 public:
     RTPS_DllAPI DestinationOrderQosPolicy()
-        : Parameter_t(PID_DESTINATION_ORDER,PARAMETER_KIND_LENGTH),
-          QosPolicy(true),
-          kind(BY_RECEPTION_TIMESTAMP_DESTINATIONORDER_QOS)
+        : Parameter_t(PID_DESTINATION_ORDER,PARAMETER_KIND_LENGTH)
+        , QosPolicy(true)
+        , kind(BY_RECEPTION_TIMESTAMP_DESTINATIONORDER_QOS)
     {}
 
     virtual RTPS_DllAPI ~DestinationOrderQosPolicy() {}
 
-    bool operator==(const DestinationOrderQosPolicy& b) const
+    bool operator ==(
+            const DestinationOrderQosPolicy& b) const
     {
         return (this->kind == b.kind) &&
                Parameter_t::operator==(b) &&
@@ -413,7 +430,8 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
 public:
     DestinationOrderQosPolicyKind kind;
@@ -427,15 +445,16 @@ class UserDataQosPolicy : public Parameter_t, public QosPolicy
 {
     friend class ParameterList;
 public:
-    RTPS_DllAPI UserDataQosPolicy() :
-        Parameter_t(PID_USER_DATA, 0),
-        QosPolicy(false),
-        dataVec{}
+    RTPS_DllAPI UserDataQosPolicy()
+        : Parameter_t(PID_USER_DATA, 0)
+        , QosPolicy(false)
+        , dataVec{}
     {}
 
     virtual RTPS_DllAPI ~UserDataQosPolicy() {}
 
-    bool operator==(const UserDataQosPolicy& b) const
+    bool operator ==(
+            const UserDataQosPolicy& b) const
     {
         return (this->dataVec == b.dataVec) &&
                Parameter_t::operator==(b) &&
@@ -447,18 +466,26 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
     /**
      * Returns raw data vector.
      * @return raw data as vector of octets.
      * */
-    RTPS_DllAPI inline std::vector<rtps::octet> getDataVec() const { return dataVec; }
+    RTPS_DllAPI inline std::vector<rtps::octet> getDataVec() const
+    {
+        return dataVec;
+    }
     /**
      * Sets raw data vector.
      * @param vec raw data to set.
      * */
-    RTPS_DllAPI inline void setDataVec(const std::vector<rtps::octet>& vec){ dataVec = vec; }
+    RTPS_DllAPI inline void setDataVec(
+            const std::vector<rtps::octet>& vec)
+    {
+        dataVec = vec;
+    }
 
 private:
     std::vector<rtps::octet> dataVec;
@@ -475,14 +502,15 @@ class TimeBasedFilterQosPolicy : public Parameter_t, public QosPolicy
 public:
 
     RTPS_DllAPI TimeBasedFilterQosPolicy()
-        : Parameter_t(PID_TIME_BASED_FILTER,PARAMETER_TIME_LENGTH),
-          QosPolicy(false),
-          minimum_separation(0, 0)
+        : Parameter_t(PID_TIME_BASED_FILTER,PARAMETER_TIME_LENGTH)
+        , QosPolicy(false)
+        , minimum_separation(0, 0)
     {}
 
     virtual RTPS_DllAPI ~TimeBasedFilterQosPolicy() {}
 
-    bool operator==(const TimeBasedFilterQosPolicy& b) const
+    bool operator ==(
+            const TimeBasedFilterQosPolicy& b) const
     {
         return (this->minimum_separation == b.minimum_separation) &&
                Parameter_t::operator==(b) &&
@@ -494,7 +522,8 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
 public:
     Duration_t minimum_separation;
@@ -524,16 +553,17 @@ class PresentationQosPolicy : public Parameter_t, public QosPolicy
     friend class ParameterList;
 public:
     RTPS_DllAPI PresentationQosPolicy()
-        : Parameter_t(PID_PRESENTATION,PARAMETER_PRESENTATION_LENGTH),
-          QosPolicy(false),
-          access_scope(INSTANCE_PRESENTATION_QOS),
-          coherent_access(false),
-          ordered_access(false)
+        : Parameter_t(PID_PRESENTATION,PARAMETER_PRESENTATION_LENGTH)
+        , QosPolicy(false)
+        , access_scope(INSTANCE_PRESENTATION_QOS)
+        , coherent_access(false)
+        , ordered_access(false)
     {}
 
     virtual RTPS_DllAPI ~PresentationQosPolicy() {}
 
-    bool operator==(const PresentationQosPolicy& b) const
+    bool operator ==(
+            const PresentationQosPolicy& b) const
     {
         return (this->access_scope == b.access_scope) &&
                (this->coherent_access == b.coherent_access) &&
@@ -547,7 +577,8 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
 public:
     PresentationQosPolicyAccessScopeKind access_scope;
@@ -572,7 +603,8 @@ public:
 
     virtual RTPS_DllAPI ~PartitionQosPolicy(){}
 
-    bool operator==(const PartitionQosPolicy& b) const
+    bool operator ==(
+            const PartitionQosPolicy& b) const
     {
         return (this->names == b.names) &&
                Parameter_t::operator==(b) &&
@@ -584,27 +616,43 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
     /**
      * Appends a name to the list of partition names.
      * @param name Name to append.
      */
-    RTPS_DllAPI inline void push_back(const char* name){ names.push_back(std::string(name)); hasChanged = true; }
+    RTPS_DllAPI inline void push_back(
+            const char* name)
+    {
+        names.push_back(std::string(name));
+        hasChanged = true;
+    }
     /**
      * Clears list of partition names
      */
-    RTPS_DllAPI inline void clear(){ names.clear(); }
+    RTPS_DllAPI inline void clear()
+    {
+        names.clear();
+    }
     /**
      * Returns partition names.
      * @return Vector of partition name strings.
      */
-    RTPS_DllAPI inline std::vector<std::string> getNames() const { return names; }
+    RTPS_DllAPI inline std::vector<std::string> getNames() const
+    {
+        return names;
+    }
     /**
      * Overrides partition names
      * @param nam Vector of partition name strings.
      */
-    RTPS_DllAPI inline void setNames(std::vector<std::string>& nam){ names = nam; hasChanged = true; }
+    RTPS_DllAPI inline void setNames(std::vector<std::string>& nam)
+    {
+        names = nam;
+        hasChanged = true;
+    }
 
 private:
     std::vector<std::string> names;
@@ -619,13 +667,14 @@ class  TopicDataQosPolicy : public Parameter_t, public QosPolicy
     friend class ParameterList;
 public:
     RTPS_DllAPI TopicDataQosPolicy()
-        : Parameter_t(PID_TOPIC_DATA, 0),
-          QosPolicy(false)
+        : Parameter_t(PID_TOPIC_DATA, 0)
+        , QosPolicy(false)
     {}
 
     virtual RTPS_DllAPI ~TopicDataQosPolicy() {}
 
-    bool operator==(const TopicDataQosPolicy& b) const
+    bool operator ==(
+            const TopicDataQosPolicy& b) const
     {
         return (this->value == b.value) &&
                Parameter_t::operator==(b) &&
@@ -637,27 +686,42 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
     /**
      * Appends topic data.
      * @param oc Data octet.
      */
-    RTPS_DllAPI inline void push_back(rtps::octet oc) { value.push_back(oc); }
+    RTPS_DllAPI inline void push_back(
+            rtps::octet oc)
+    {
+        value.push_back(oc);
+    }
     /**
      * Clears all topic data.
      */
-    RTPS_DllAPI inline void clear(){ value.clear(); }
+    RTPS_DllAPI inline void clear()
+    {
+        value.clear();
+    }
     /**
      * Overrides topic data vector.
      * @param ocv Topic data octet vector.
      */
-    RTPS_DllAPI inline void setValue(std::vector<rtps::octet> ocv) { value = ocv; }
+    RTPS_DllAPI inline void setValue(
+            std::vector<rtps::octet> ocv)
+    {
+        value = ocv;
+    }
     /**
      * Returns topic data
      * @return Vector of data octets.
      */
-    RTPS_DllAPI inline std::vector<rtps::octet> getValue() const { return value; }
+    RTPS_DllAPI inline std::vector<rtps::octet> getValue() const
+    {
+        return value;
+    }
 
 private:
     std::vector<rtps::octet> value;
@@ -671,14 +735,15 @@ class  GroupDataQosPolicy : public Parameter_t, public QosPolicy
     friend class ParameterList;
 public:
     RTPS_DllAPI GroupDataQosPolicy()
-        : Parameter_t(PID_GROUP_DATA, 0),
-          QosPolicy(false),
-          value{}
+        : Parameter_t(PID_GROUP_DATA, 0)
+        , QosPolicy(false)
+        , value{}
     {}
 
     virtual RTPS_DllAPI ~GroupDataQosPolicy() {}
 
-    bool operator==(const GroupDataQosPolicy& b) const
+    bool operator ==(
+            const GroupDataQosPolicy& b) const
     {
         return (this->value == b.value) &&
                Parameter_t::operator==(b) &&
@@ -690,27 +755,42 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
     /**
      * Appends group data.
      * @param oc Data octet.
      */
-    RTPS_DllAPI inline void push_back(rtps::octet oc) { value.push_back(oc); }
+    RTPS_DllAPI inline void push_back(
+            rtps::octet oc)
+    {
+        value.push_back(oc);
+    }
     /**
      * Clears all group data.
      */
-    RTPS_DllAPI inline void clear() { value.clear(); }
+    RTPS_DllAPI inline void clear()
+    {
+        value.clear();
+    }
     /**
      * Overrides group data vector.
      * @param ocv Group data octet vector.
      */
-    RTPS_DllAPI inline void setValue(std::vector<rtps::octet> ocv){ value = ocv; }
+    RTPS_DllAPI inline void setValue(
+            std::vector<rtps::octet> ocv)
+    {
+        value = ocv;
+    }
     /**
      * Returns group data
      * @return Vector of data octets.
      */
-    RTPS_DllAPI inline std::vector<rtps::octet> getValue() const { return value; }
+    RTPS_DllAPI inline std::vector<rtps::octet> getValue() const
+    {
+        return value;
+    }
 
 private:
     std::vector<rtps::octet> value;
@@ -734,15 +814,16 @@ class HistoryQosPolicy : public Parameter_t, public QosPolicy
     friend class ParameterList;
 public:
     RTPS_DllAPI HistoryQosPolicy()
-        : Parameter_t(PID_HISTORY,PARAMETER_KIND_LENGTH+4),
-          QosPolicy(true),
-          kind(KEEP_LAST_HISTORY_QOS),
-          depth(1)
+        : Parameter_t(PID_HISTORY,PARAMETER_KIND_LENGTH+4)
+        , QosPolicy(true)
+        , kind(KEEP_LAST_HISTORY_QOS)
+        , depth(1)
     {}
 
     virtual RTPS_DllAPI ~HistoryQosPolicy() {}
 
-    bool operator==(const HistoryQosPolicy& b) const
+    bool operator ==(
+            const HistoryQosPolicy& b) const
     {
         return (this->kind == b.kind) &&
                (this->depth == b.depth) &&
@@ -755,7 +836,8 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
 public:
     HistoryQosPolicyKind kind;
@@ -778,20 +860,26 @@ public:
     int32_t max_samples_per_instance;
     int32_t allocated_samples;
 
-    RTPS_DllAPI ResourceLimitsQosPolicy() :Parameter_t(PID_RESOURCE_LIMITS, 4 + 4 + 4), QosPolicy(false),
-        max_samples(5000), max_instances(10), max_samples_per_instance(400), allocated_samples(100)
+    RTPS_DllAPI ResourceLimitsQosPolicy()
+        : Parameter_t(PID_RESOURCE_LIMITS, 4 + 4 + 4)
+        , QosPolicy(false)
+        , max_samples(5000)
+        , max_instances(10)
+        , max_samples_per_instance(400)
+        , allocated_samples(100)
     { }
 
     virtual RTPS_DllAPI ~ResourceLimitsQosPolicy() { }
 
-    bool operator==(const ResourceLimitsQosPolicy& b) const
+    bool operator ==(
+            const ResourceLimitsQosPolicy& b) const
     {
         return (this->max_samples == b.max_samples) &&
                (this->max_instances == b.max_instances) &&
                (this->max_samples_per_instance == b.max_samples_per_instance) &&
                (this->allocated_samples == b.allocated_samples) &&
-               Parameter_t::operator==(b) &&
-               QosPolicy::operator==(b);
+               Parameter_t::operator ==(b) &&
+               QosPolicy::operator ==(b);
     }
 
     /**
@@ -799,7 +887,8 @@ public:
     * @param msg Message to append the QoS Policy to.
     * @return True if the modified CDRMessage is valid.
     */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 };
 
 
@@ -830,7 +919,8 @@ public:
 
     virtual RTPS_DllAPI ~DurabilityServiceQosPolicy(){}
 
-    bool operator==(const DurabilityServiceQosPolicy& b) const
+    bool operator ==(
+            const DurabilityServiceQosPolicy& b) const
     {
         return (this->history_kind == b.history_kind) &&
                (this->history_depth == b.history_depth) &&
@@ -846,7 +936,8 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
 public:
     Duration_t service_cleanup_delay;
@@ -867,14 +958,15 @@ class LifespanQosPolicy : public Parameter_t, public QosPolicy
     friend class ParameterList;
 public:
     RTPS_DllAPI LifespanQosPolicy()
-        : Parameter_t(PID_LIFESPAN,PARAMETER_TIME_LENGTH),
-          QosPolicy(true),
-          duration(TIME_T_INFINITE_SECONDS, TIME_T_INFINITE_NANOSECONDS)
+        : Parameter_t(PID_LIFESPAN,PARAMETER_TIME_LENGTH)
+        , QosPolicy(true)
+        , duration(TIME_T_INFINITE_SECONDS, TIME_T_INFINITE_NANOSECONDS)
     {}
 
     virtual RTPS_DllAPI ~LifespanQosPolicy() {}
 
-    bool operator==(const LifespanQosPolicy& b) const
+    bool operator ==(
+            const LifespanQosPolicy& b) const
     {
         return (this->duration == b.duration) &&
                Parameter_t::operator==(b) &&
@@ -886,7 +978,8 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
 public:
     Duration_t duration;
@@ -901,14 +994,15 @@ class OwnershipStrengthQosPolicy : public Parameter_t, public QosPolicy
     friend class ParameterList;
 public:
     RTPS_DllAPI OwnershipStrengthQosPolicy()
-        : Parameter_t(PID_OWNERSHIP_STRENGTH,4),
-          QosPolicy(false),
-          value(0)
+        : Parameter_t(PID_OWNERSHIP_STRENGTH,4)
+        , QosPolicy(false)
+        , value(0)
     {}
 
     virtual RTPS_DllAPI ~OwnershipStrengthQosPolicy() {}
 
-    bool operator==(const OwnershipStrengthQosPolicy& b) const
+    bool operator ==(
+            const OwnershipStrengthQosPolicy& b) const
     {
         return (this->value == b.value) &&
                Parameter_t::operator==(b) &&
@@ -920,7 +1014,8 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
 public:
     uint32_t value;
@@ -938,10 +1033,15 @@ class TransportPriorityQosPolicy : public Parameter_t , public QosPolicy
     friend class ParameterList;
 public:
         uint32_t value;
-        RTPS_DllAPI TransportPriorityQosPolicy():Parameter_t(PID_TRANSPORT_PRIORITY,4),QosPolicy(false),value(0){};
+        RTPS_DllAPI TransportPriorityQosPolicy()
+            : Parameter_t(PID_TRANSPORT_PRIORITY,4)
+            , QosPolicy(false)
+            ,value(0)
+        {};
         virtual RTPS_DllAPI ~TransportPriorityQosPolicy(){};
 
-        bool operator==(const TransportPriorityQosPolicy& b) const
+        bool operator ==(
+                const TransportPriorityQosPolicy& b) const
         {
             return (this->value == b.value) &&
                 Parameter_t::operator==(b) &&
@@ -953,7 +1053,8 @@ public:
          * @param msg Message to append the QoS Policy to.
          * @return True if the modified CDRMessage is valid.
          */
-        bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+        bool addToCDRMessage(
+                rtps::CDRMessage_t* msg) override;
 };
 
 /**
@@ -971,7 +1072,9 @@ typedef enum PublishModeQosPolicyKind : rtps::octet{
 class PublishModeQosPolicy : public QosPolicy {
     public:
         PublishModeQosPolicyKind kind;
-        RTPS_DllAPI PublishModeQosPolicy() : kind(SYNCHRONOUS_PUBLISH_MODE){};
+        RTPS_DllAPI PublishModeQosPolicy()
+            : kind(SYNCHRONOUS_PUBLISH_MODE)
+        {};
         virtual RTPS_DllAPI ~PublishModeQosPolicy(){};
 };
 
@@ -1002,7 +1105,8 @@ public:
     * @param b QoS Policy.
     * @return True if the policy is equal.
     */
-    bool operator==(const DataRepresentationQosPolicy& b) const
+    bool operator ==(
+            const DataRepresentationQosPolicy& b) const
     {
         return (this->m_value == b.m_value) &&
             Parameter_t::operator==(b) &&
@@ -1014,7 +1118,8 @@ public:
     * @param msg Message to append the QoS Policy to.
     * @return True if the modified CDRMessage is valid.
     */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 };
 
 enum TypeConsistencyKind : uint32_t
@@ -1051,7 +1156,8 @@ public:
 
     virtual RTPS_DllAPI ~TypeConsistencyEnforcementQosPolicy() override {}
 
-    bool operator==(const TypeConsistencyEnforcementQosPolicy& b) const
+    bool operator ==(
+            const TypeConsistencyEnforcementQosPolicy& b) const
     {
         return m_kind == b.m_kind &&
                 m_ignore_sequence_bounds == b.m_ignore_sequence_bounds &&
@@ -1068,7 +1174,8 @@ public:
     * @param msg Message to append the QoS Policy to.
     * @return True if the modified CDRMessage is valid.
     */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 };
 
 /**
@@ -1091,7 +1198,8 @@ public:
     virtual RTPS_DllAPI ~DisablePositiveACKsQosPolicy()
     {}
 
-    bool operator==(const DisablePositiveACKsQosPolicy& b) const
+    bool operator ==(
+            const DisablePositiveACKsQosPolicy& b) const
     {
         return enabled == b.enabled &&
                 Parameter_t::operator==(b) &&
@@ -1103,7 +1211,8 @@ public:
      * @param msg Message to append the QoS Policy to.
      * @return True if the modified CDRMessage is valid.
      */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
 public:
     //! True if this QoS is enabled
@@ -1129,21 +1238,24 @@ public:
     {
     }
 
-    RTPS_DllAPI TypeIdV1(const TypeIdV1& type)
+    RTPS_DllAPI TypeIdV1(
+            const TypeIdV1& type)
             : Parameter_t(type.Pid, type.length)
             , QosPolicy(type.m_sendAlways)
             , m_type_identifier(type.m_type_identifier)
     {
     }
 
-    RTPS_DllAPI TypeIdV1(TypeIdV1&& type)
+    RTPS_DllAPI TypeIdV1(
+            TypeIdV1&& type)
             : Parameter_t(type.Pid, type.length)
             , QosPolicy(type.m_sendAlways)
             , m_type_identifier(std::move(type.m_type_identifier))
     {
     }
 
-    RTPS_DllAPI TypeIdV1& operator=(const TypeIdV1& type)
+    RTPS_DllAPI TypeIdV1& operator =(
+            const TypeIdV1& type)
     {
         Pid = type.Pid;
         length = type.length;
@@ -1154,7 +1266,8 @@ public:
         return *this;
     }
 
-    RTPS_DllAPI TypeIdV1& operator=(TypeIdV1&& type)
+    RTPS_DllAPI TypeIdV1& operator =(
+            TypeIdV1&& type)
     {
         Pid = type.Pid;
         length = type.length;
@@ -1174,10 +1287,13 @@ public:
     * @param msg Message to append the QoS Policy to.
     * @return True if the modified CDRMessage is valid.
     */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
-    bool readFromCDRMessage(rtps::CDRMessage_t* msg, uint32_t size);
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
+    bool readFromCDRMessage(
+            rtps::CDRMessage_t* msg, uint32_t size);
 
-    RTPS_DllAPI TypeIdV1& operator=(const types::TypeIdentifier& type_id)
+    RTPS_DllAPI TypeIdV1& operator =(
+            const types::TypeIdentifier& type_id)
     {
         m_type_identifier = type_id;
         return *this;
@@ -1205,21 +1321,24 @@ public:
     {
     }
 
-    RTPS_DllAPI TypeObjectV1(const TypeObjectV1& type)
+    RTPS_DllAPI TypeObjectV1(
+            const TypeObjectV1& type)
             : Parameter_t(type.Pid, type.length)
             , QosPolicy(type.m_sendAlways)
             , m_type_object(type.m_type_object)
     {
     }
 
-    RTPS_DllAPI TypeObjectV1(TypeObjectV1&& type)
+    RTPS_DllAPI TypeObjectV1(
+            TypeObjectV1&& type)
             : Parameter_t(type.Pid, type.length)
             , QosPolicy(type.m_sendAlways)
             , m_type_object(std::move(type.m_type_object))
     {
     }
 
-    RTPS_DllAPI TypeObjectV1& operator=(const TypeObjectV1& type)
+    RTPS_DllAPI TypeObjectV1& operator =(
+            const TypeObjectV1& type)
     {
         Pid = type.Pid;
         length = type.length;
@@ -1230,7 +1349,8 @@ public:
         return *this;
     }
 
-    RTPS_DllAPI TypeObjectV1& operator=(TypeObjectV1&& type)
+    RTPS_DllAPI TypeObjectV1& operator =(
+            TypeObjectV1&& type)
     {
         Pid = type.Pid;
         length = type.length;
@@ -1249,10 +1369,13 @@ public:
     * @param msg Message to append the QoS Policy to.
     * @return True if the modified CDRMessage is valid.
     */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
-    bool readFromCDRMessage(rtps::CDRMessage_t* msg, uint32_t size);
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
+    bool readFromCDRMessage(
+            rtps::CDRMessage_t* msg, uint32_t size);
 
-    RTPS_DllAPI TypeObjectV1& operator=(const types::TypeObject& type_object)
+    RTPS_DllAPI TypeObjectV1& operator =(
+            const types::TypeObject& type_object)
     {
         m_type_object = type_object;
         return *this;
@@ -1283,7 +1406,8 @@ public:
     {
     }
 
-    RTPS_DllAPI TypeInformation(const TypeInformation& type)
+    RTPS_DllAPI TypeInformation(
+            const TypeInformation& type)
          : Parameter_t(type.Pid, type.length)
          , QosPolicy(type.m_sendAlways)
          , type_information(type.type_information)
@@ -1291,7 +1415,8 @@ public:
     {
     }
 
-    RTPS_DllAPI TypeInformation(TypeInformation&& type)
+    RTPS_DllAPI TypeInformation(
+            TypeInformation&& type)
          : Parameter_t(type.Pid, type.length)
          , QosPolicy(type.m_sendAlways)
          , type_information(std::move(type.type_information))
@@ -1299,7 +1424,8 @@ public:
     {
     }
 
-    RTPS_DllAPI TypeInformation& operator=(const TypeInformation& type)
+    RTPS_DllAPI TypeInformation& operator =(
+            const TypeInformation& type)
     {
         Pid = type.Pid;
         length = type.length;
@@ -1311,7 +1437,8 @@ public:
         return *this;
     }
 
-    RTPS_DllAPI TypeInformation& operator=(TypeInformation&& type)
+    RTPS_DllAPI TypeInformation& operator =(
+            TypeInformation&& type)
     {
         Pid = type.Pid;
         length = type.length;
@@ -1332,13 +1459,18 @@ public:
     * @param msg Message to append the QoS Policy to.
     * @return True if the modified CDRMessage is valid.
     */
-    bool addToCDRMessage(rtps::CDRMessage_t* msg) override;
+    bool addToCDRMessage(
+            rtps::CDRMessage_t* msg) override;
 
     bool readFromCDRMessage(rtps::CDRMessage_t* msg, uint32_t size);
 
-    RTPS_DllAPI bool assigned() const { return assigned_; }
+    RTPS_DllAPI bool assigned() const
+    {
+        return assigned_;
+    }
 
-    RTPS_DllAPI TypeInformation& operator=(const types::TypeInformation& type_info)
+    RTPS_DllAPI TypeInformation& operator =(
+            const types::TypeInformation& type_info)
     {
         type_information = type_info;
         assigned_ = true;

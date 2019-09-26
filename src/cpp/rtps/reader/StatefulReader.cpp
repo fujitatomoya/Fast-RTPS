@@ -150,11 +150,8 @@ bool StatefulReader::matched_writer_add(
     }
 
     SequenceNumber_t initial_sequence;
-    if (persist)
-    {
-        add_persistence_guid(wdata.guid(), wdata.persistence_guid());
-        initial_sequence = get_last_notified(wdata.guid());
-    }
+    add_persistence_guid(wdata.guid(), wdata.persistence_guid());
+    initial_sequence = get_last_notified(wdata.guid());
 
     wp->start(wdata, initial_sequence);
 
