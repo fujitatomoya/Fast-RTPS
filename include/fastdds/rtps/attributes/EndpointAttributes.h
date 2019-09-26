@@ -13,7 +13,7 @@
 // limitations under the License.
 
 /**
- * @file fastdds/rtps/EndpointAttributes.h
+ * @file fastdds/rtps/attributes/EndpointAttributes.h
  */
 
 #ifndef _FASTDDS_ENDPOINTATTRIBUTES_H_
