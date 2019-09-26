@@ -25,19 +25,19 @@
 #include <functional>
 
 namespace eprosima {
-namespace fastrtps {
-namespace rtps {
 
+namespace fastrtps {
+
+namespace rtps {
 struct SerializedPayload_t;
 struct InstanceHandle_t;
-
 } // namesapace rtps
 
 namespace types {
-
 class TypeIdentifier;
-
 } // namespace types
+
+
 } // namesapace fastrtps
 
 namespace fastdds {

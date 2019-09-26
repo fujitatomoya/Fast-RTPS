@@ -65,7 +65,6 @@ bool HelloWorldSubscriber::init()
     TopicAttributes topic_att;
     topic_att.topicDataType = "HelloWorld";
     topic_att.topicName = "HelloWorldTopic";
-
     reader_ = subscriber_->create_datareader(topic_att, rqos, &listener_);
 
     if (reader_ == nullptr)

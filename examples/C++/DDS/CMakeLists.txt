@@ -14,7 +14,4 @@
 
 set(fastrtps_FOUND TRUE)
 add_subdirectory(HelloWorldExample)
-<<<<<<< HEAD
 add_subdirectory(DynamicHelloWorldExample)
-=======
->>>>>>> Feature/refactor reader writer [5911] (#590)
