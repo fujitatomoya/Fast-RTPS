@@ -89,19 +89,15 @@ const SubscriberQos& SubscriberImpl::get_qos() const
     return qos_;
 }
 
-ReturnCode_t SubscriberImpl::set_qos(
+bool SubscriberImpl::set_qos(
         const SubscriberQos& qos)
 {
-     if(!qos.check_qos())
+    if (qos.can_qos_be_updated(qos) && qos.check_qos())
     {
-        if(!qos_.can_qos_be_updated(qos))
-        {
-            return ReturnCode_t::RETCODE_IMMUTABLE_POLICY;
-        }
         qos_.set_qos(qos, false);
-        return ReturnCode_t::RETCODE_OK;
+        return true;
     }
-    return ReturnCode_t::RETCODE_INCONSISTENT_POLICY;
+    return false;
 }
 
 const SubscriberListener* SubscriberImpl::get_listener() const
@@ -109,15 +105,15 @@ const SubscriberListener* SubscriberImpl::get_listener() const
     return listener_;
 }
 
-ReturnCode_t SubscriberImpl::set_listener(
+bool SubscriberImpl::set_listener(
         SubscriberListener* listener)
 {
     if (listener_ == listener)
     {
-        return ReturnCode_t::RETCODE_ERROR;
+        return false;
     }
     listener_ = listener;
-    return ReturnCode_t::RETCODE_OK;
+    return true;
 }
 
 
@@ -222,13 +218,9 @@ DataReader* SubscriberImpl::create_datareader(
     return reader;
 }
 
-ReturnCode_t SubscriberImpl::delete_datareader(
+bool SubscriberImpl::delete_datareader(
         DataReader* reader)
 {
-    if(user_subscriber_ != reader->get_subscriber())
-    {
-        return ReturnCode_t::RETCODE_PRECONDITION_NOT_MET;
-    }
     std::lock_guard<std::mutex> lock(mtx_readers_);
     auto it = readers_.find(reader->get_topic().getTopicName().to_string());
     if (it != readers_.end())
@@ -238,10 +230,10 @@ ReturnCode_t SubscriberImpl::delete_datareader(
         {
             (*dr_it)->set_listener(nullptr);
             it->second.erase(dr_it);
-            return ReturnCode_t::RETCODE_OK;
+            return true;
         }
     }
-    return ReturnCode_t::RETCODE_ERROR;
+    return false;
 }
 
 DataReader* SubscriberImpl::lookup_datareader(
@@ -256,7 +248,7 @@ DataReader* SubscriberImpl::lookup_datareader(
     return nullptr;
 }
 
-ReturnCode_t SubscriberImpl::get_datareaders(
+bool SubscriberImpl::get_datareaders(
         std::vector<DataReader*>& readers) const
 {
     std::lock_guard<std::mutex> lock(mtx_readers_);
@@ -266,15 +258,6 @@ ReturnCode_t SubscriberImpl::get_datareaders(
         {
             readers.push_back(dr->user_datareader_);
         }
-    }
-    return ReturnCode_t::RETCODE_OK;
-}
-
-bool SubscriberImpl::has_datareaders() const
-{
-    if(readers_.empty())
-    {
-        return false;
     }
     return true;
 }
@@ -295,7 +278,7 @@ bool SubscriberImpl::end_access()
 }
 */
 
-ReturnCode_t SubscriberImpl::notify_datareaders() const
+bool SubscriberImpl::notify_datareaders() const
 {
     for (auto it : readers_)
     {
@@ -304,7 +287,7 @@ ReturnCode_t SubscriberImpl::notify_datareaders() const
             dr->listener_->on_data_available(dr->user_datareader_);
         }
     }
-    return ReturnCode_t::RETCODE_OK;
+    return true;
 }
 
 /* TODO
@@ -315,20 +298,20 @@ bool SubscriberImpl::delete_contained_entities()
 }
 */
 
-ReturnCode_t SubscriberImpl::set_default_datareader_qos(
+bool SubscriberImpl::set_default_datareader_qos(
         const fastrtps::ReaderQos& qos)
 {
     if (&qos == &DATAREADER_QOS_DEFAULT)
     {
         default_datareader_qos_.setQos(DATAREADER_QOS_DEFAULT, true);
-        return ReturnCode_t::RETCODE_OK;
+        return true;
     }
-    else if (qos.checkQos())
+    else if (default_datareader_qos_.canQosBeUpdated(qos) && qos.checkQos())
     {
         default_datareader_qos_.setQos(qos, true);
-        return ReturnCode_t::RETCODE_OK;
+        return true;
     }
-    return ReturnCode_t::RETCODE_INCONSISTENT_POLICY;
+    return false;
 }
 
 const fastrtps::ReaderQos& SubscriberImpl::get_default_datareader_qos() const
@@ -483,7 +466,7 @@ void SubscriberImpl::SubscriberReaderListener::on_sample_rejected(
 
 void SubscriberImpl::SubscriberReaderListener::on_requested_incompatible_qos(
         DataReader* /*reader*/,
-        const RequestedIncompatibleQosStatus& /*status*/)
+        const fastdds::dds::RequestedIncompatibleQosStatus& /*status*/)
 {
     /* TODO
     if (subscriber_->listener_ != nullptr)
@@ -495,7 +478,7 @@ void SubscriberImpl::SubscriberReaderListener::on_requested_incompatible_qos(
 
 void SubscriberImpl::SubscriberReaderListener::on_sample_lost(
         DataReader* /*reader*/,
-        const SampleLostStatus& /*status*/)
+        const fastdds::dds::SampleLostStatus& /*status*/)
 {
     /* TODO
     if (subscriber_->listener_ != nullptr)

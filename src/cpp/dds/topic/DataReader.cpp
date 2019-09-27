@@ -43,14 +43,14 @@ bool DataReader::wait_for_unread_message(
     return impl_->wait_for_unread_message(timeout);
 }
 
-ReturnCode_t DataReader::read_next_sample(
+bool DataReader::read_next_sample(
         void *data,
         SampleInfo_t *info)
 {
     return impl_->read_next_sample(data, info);
 }
 
-ReturnCode_t DataReader::take_next_sample(
+bool DataReader::take_next_sample(
         void *data,
         SampleInfo_t *info)
 {
@@ -67,7 +67,7 @@ InstanceHandle_t DataReader::get_instance_handle() const
     return impl_->get_instance_handle();
 }
 
-ReturnCode_t DataReader::set_qos(
+bool DataReader::set_qos(
         const ReaderQos& qos)
 {
     return impl_->set_qos(qos);
@@ -84,11 +84,11 @@ const ReaderQos& DataReader::get_qos() const
     return impl_->get_qos();
 }
 
-ReturnCode_t DataReader::get_qos(
+bool DataReader::get_qos(
         ReaderQos& qos) const
 {
     qos = impl_->get_qos();
-    return ReturnCode_t::RETCODE_OK;
+    return true;
 }
 
 const TopicAttributes& DataReader::get_topic() const
@@ -107,10 +107,10 @@ const ReaderAttributes& DataReader::get_attributes() const
     return impl_->get_attributes();
 }
 
-ReturnCode_t DataReader::get_requested_deadline_missed_status(
+void DataReader::get_requested_deadline_missed_status(
         RequestedDeadlineMissedStatus& status)
 {
-    return impl_->get_requested_deadline_missed_status(status);
+    impl_->get_requested_deadline_missed_status(status);
 }
 
 /* TODO
@@ -131,7 +131,7 @@ bool DataReader::take(
 }
 */
 
-ReturnCode_t DataReader::set_listener(
+bool DataReader::set_listener(
         DataReaderListener* listener)
 {
     return impl_->set_listener(listener);
@@ -151,7 +151,7 @@ bool DataReader::get_key_value(
 }
 */
 
-ReturnCode_t DataReader::get_liveliness_changed_status(
+bool DataReader::get_liveliness_changed_status(
         LivelinessChangedStatus& status) const
 {
     return impl_->get_liveliness_changed_status(status);

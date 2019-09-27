@@ -29,14 +29,14 @@ const SubscriberQos& Subscriber::get_qos() const
     return impl_->get_qos();
 }
 
-ReturnCode_t Subscriber::get_qos(
+bool Subscriber::get_qos(
         SubscriberQos& qos) const
 {
     qos = impl_->get_qos();
-    return ReturnCode_t::RETCODE_OK;
+    return true;
 }
 
-ReturnCode_t Subscriber::set_qos(
+bool Subscriber::set_qos(
         const SubscriberQos& qos)
 {
     return impl_->set_qos(qos);
@@ -47,7 +47,7 @@ const SubscriberListener* Subscriber::get_listener() const
     return impl_->get_listener();
 }
 
-ReturnCode_t Subscriber::set_listener(
+bool Subscriber::set_listener(
         SubscriberListener* listener)
 {
     return impl_->set_listener(listener);
@@ -61,7 +61,7 @@ DataReader* Subscriber::create_datareader(
     return impl_->create_datareader(topic_attr, reader_qos, listener);
 }
 
-ReturnCode_t Subscriber::delete_datareader(
+bool Subscriber::delete_datareader(
         DataReader* reader)
 {
     return impl_->delete_datareader(reader);
@@ -73,15 +73,10 @@ DataReader* Subscriber::lookup_datareader(
     return impl_->lookup_datareader(topic_name);
 }
 
-ReturnCode_t Subscriber::get_datareaders(
+bool Subscriber::get_datareaders(
         std::vector<DataReader*>& readers) const
 {
     return impl_->get_datareaders(readers);
-}
-
-bool Subscriber::has_datareaders() const
-{
-    return impl_->has_datareaders();
 }
 
 /* TODO
@@ -98,7 +93,7 @@ bool Subscriber::end_access()
 }
 */
 
-ReturnCode_t Subscriber::notify_datareaders() const
+bool Subscriber::notify_datareaders() const
 {
     return impl_->notify_datareaders();
 }
@@ -110,7 +105,7 @@ bool Subscriber::delete_contained_entities()
 }
 */
 
-ReturnCode_t Subscriber::set_default_datareader_qos(
+bool Subscriber::set_default_datareader_qos(
         const fastrtps::ReaderQos& qos)
 {
     return impl_->set_default_datareader_qos(qos);
@@ -121,11 +116,11 @@ const fastrtps::ReaderQos& Subscriber::get_default_datareader_qos() const
     return impl_->get_default_datareader_qos();
 }
 
-ReturnCode_t Subscriber::get_default_datareader_qos(
+bool Subscriber::get_default_datareader_qos(
         fastrtps::ReaderQos& qos) const
 {
     qos = impl_->get_default_datareader_qos();
-    return ReturnCode_t::RETCODE_OK;
+    return true;
 }
 
 /* TODO

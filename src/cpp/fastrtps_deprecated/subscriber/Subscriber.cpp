@@ -61,7 +61,7 @@ bool Subscriber::isInCleanState() const
 
 uint64_t Subscriber::get_unread_count() const
 {
-	return mp_impl->get_unread_count();
+    return mp_impl->get_unread_count();
 }
 
 void Subscriber::get_requested_deadline_missed_status(RequestedDeadlineMissedStatus& status)

@@ -24,9 +24,6 @@
 
 #include <fastdds/dds/topic/DataReaderListener.hpp>
 #include <fastdds/dds/subscriber/qos/SubscriberQos.hpp>
-#include <fastrtps/types/TypesBase.h>
-
-using eprosima::fastrtps::types::ReturnCode_t;
 
 namespace eprosima {
 namespace fastrtps {
@@ -80,7 +77,7 @@ public:
      * Retrieves the Subscriber Qos.
      * @return true
      */
-    ReturnCode_t get_qos(
+    bool get_qos(
             SubscriberQos& qos) const;
 
     /**
@@ -89,7 +86,7 @@ public:
      * @param qos
      * @return False if IMMUTABLE_POLICY or INCONSISTENT_POLICY occurs. True if updated.
      */
-    ReturnCode_t set_qos(
+    bool set_qos(
             const SubscriberQos& qos);
 
     /**
@@ -102,7 +99,7 @@ public:
      * @param listener
      * @return if successfully set.
      */
-    ReturnCode_t set_listener(
+    bool set_listener(
             SubscriberListener* listener);
 
     /**
@@ -125,7 +122,7 @@ public:
      * return false.
      * @param reader
      */
-    ReturnCode_t delete_datareader(
+    bool delete_datareader(
             DataReader* reader);
 
     /**
@@ -144,14 +141,8 @@ public:
      * @param readers
      * @return true
      */
-    ReturnCode_t get_datareaders(
+    bool get_datareaders(
         std::vector<DataReader*>& readers) const;
-
-    /**
-     * This operation checks if the subscriber has DataReaders
-     * @return true if the publisher has one or several DataReaders, false in other case
-     */
-    bool has_datareaders() const;
 
     /* TODO
     bool begin_access();
@@ -169,7 +160,7 @@ public:
      * That way the SubscriberListener can delegate to the DataReaderListener objects the handling of the data.
      * @return
      */
-    ReturnCode_t notify_datareaders() const;
+    bool notify_datareaders() const;
 
     /* TODO
     bool delete_contained_entities();
@@ -187,7 +178,7 @@ public:
      * if the set_default_datareader_qos operation had never been called.
      * @param qos
      */
-    ReturnCode_t set_default_datareader_qos(
+    bool set_default_datareader_qos(
             const fastrtps::ReaderQos& qos);
 
     /**
@@ -211,7 +202,7 @@ public:
      * @param qos Current default ReaderQos.
      * @return Always true.
      */
-    ReturnCode_t get_default_datareader_qos(
+    bool get_default_datareader_qos(
             fastrtps::ReaderQos& qos) const;
 
     /* TODO

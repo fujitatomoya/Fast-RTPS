@@ -104,15 +104,15 @@ DynamicTypeBuilderFactory* DynamicTypeBuilderFactory::get_instance()
     return g_instance;
 }
 
-ReturnCode_t DynamicTypeBuilderFactory::delete_instance()
+ResponseCode DynamicTypeBuilderFactory::delete_instance()
 {
     if (g_instance != nullptr)
     {
         delete g_instance;
         g_instance = nullptr;
-        return ReturnCode_t::RETCODE_OK;
+        return ResponseCode::RETCODE_OK;
     }
-    return ReturnCode_t::RETCODE_ERROR;
+    return ResponseCode::RETCODE_ERROR;
 }
 
 DynamicTypeBuilderFactory::DynamicTypeBuilderFactory()
@@ -773,7 +773,7 @@ DynamicTypeBuilder* DynamicTypeBuilderFactory::create_wstring_builder(uint32_t b
     return pNewTypeBuilder;
 }
 
-ReturnCode_t DynamicTypeBuilderFactory::delete_builder(DynamicTypeBuilder* builder)
+ResponseCode DynamicTypeBuilderFactory::delete_builder(DynamicTypeBuilder* builder)
 {
     if (builder != nullptr)
     {
@@ -788,22 +788,22 @@ ReturnCode_t DynamicTypeBuilderFactory::delete_builder(DynamicTypeBuilder* build
         else
         {
             logWarning(DYN_TYPES, "The given type has been deleted previously.");
-            return ReturnCode_t::RETCODE_ALREADY_DELETED;
+            return ResponseCode::RETCODE_ALREADY_DELETED;
         }
 #else
         delete builder;
 #endif
     }
-    return ReturnCode_t::RETCODE_OK;
+    return ResponseCode::RETCODE_OK;
 }
 
-ReturnCode_t DynamicTypeBuilderFactory::delete_type(DynamicType* type)
+ResponseCode DynamicTypeBuilderFactory::delete_type(DynamicType* type)
 {
     if (type != nullptr)
     {
         delete type;
     }
-    return ReturnCode_t::RETCODE_OK;
+    return ResponseCode::RETCODE_OK;
 }
 
 DynamicType_ptr DynamicTypeBuilderFactory::get_primitive_type(TypeKind kind)

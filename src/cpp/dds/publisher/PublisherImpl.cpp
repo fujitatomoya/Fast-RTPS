@@ -91,19 +91,15 @@ const PublisherQos& PublisherImpl::get_qos() const
     return qos_;
 }
 
-ReturnCode_t PublisherImpl::set_qos(
+bool PublisherImpl::set_qos(
         const PublisherQos& qos)
 {
-    if(!qos.check_qos())
+    if(!qos.check_qos() || qos_.can_qos_be_updated(qos))
     {
-        if(!qos_.can_qos_be_updated(qos))
-        {
-            return ReturnCode_t::RETCODE_IMMUTABLE_POLICY;
-        }
         qos_.set_qos(qos, false);
-        return ReturnCode_t::RETCODE_OK;
+        return true;
     }
-    return ReturnCode_t::RETCODE_INCONSISTENT_POLICY;
+    return false;
 }
 
 const PublisherListener* PublisherImpl::get_listener() const
@@ -111,20 +107,20 @@ const PublisherListener* PublisherImpl::get_listener() const
     return listener_;
 }
 
-ReturnCode_t PublisherImpl::set_listener(
+bool PublisherImpl::set_listener(
         PublisherListener* listener)
 {
     if (listener_ == listener)
     {
-        return ReturnCode_t::RETCODE_ERROR;
+        return false;
     }
     listener_ = listener;
-    return ReturnCode_t::RETCODE_OK;
+    return true;
 }
 
 void PublisherImpl::PublisherWriterListener::on_publication_matched(
         DataWriter* /*writer*/,
-        MatchingInfo &info)
+        MatchingInfo& info)
 {
     if (publisher_->listener_ != nullptr)
     {
@@ -134,7 +130,7 @@ void PublisherImpl::PublisherWriterListener::on_publication_matched(
 
 void PublisherImpl::PublisherWriterListener::on_liveliness_lost(
         DataWriter* /*writer*/,
-        const LivelinessLostStatus &status)
+        const fastdds::dds::LivelinessLostStatus &status)
 {
     if (publisher_->listener_ != nullptr)
     {
@@ -264,13 +260,9 @@ DataWriter* PublisherImpl::create_datawriter(
     return writer;
 }
 
-ReturnCode_t PublisherImpl::delete_datawriter(
+bool PublisherImpl::delete_datawriter(
         DataWriter* writer)
 {
-    if(user_publisher_ != writer->get_publisher())
-    {
-        return ReturnCode_t::RETCODE_PRECONDITION_NOT_MET;
-    }
     std::lock_guard<std::mutex> lock(mtx_writers_);
     auto vit = writers_.find(writer->get_topic().getTopicName().to_string());
     if (vit != writers_.end())
@@ -280,10 +272,10 @@ ReturnCode_t PublisherImpl::delete_datawriter(
         {
             (*dw_it)->set_listener(nullptr);
             vit->second.erase(dw_it);
-            return ReturnCode_t::RETCODE_OK;
+            return true;
         }
     }
-    return ReturnCode_t::RETCODE_ERROR;
+    return false;
 }
 
 DataWriter* PublisherImpl::lookup_datawriter(
@@ -308,15 +300,6 @@ bool PublisherImpl::get_datawriters(
         {
             writers.push_back(dw->user_datawriter_);
         }
-    }
-    return true;
-}
-
-bool PublisherImpl::has_datawriters() const
-{
-    if(writers_.empty())
-    {
-        return false;
     }
     return true;
 }
@@ -372,20 +355,20 @@ bool PublisherImpl::end_coherent_changes()
 */
 
 
-ReturnCode_t PublisherImpl::set_default_datawriter_qos(
+bool PublisherImpl::set_default_datawriter_qos(
         const fastrtps::WriterQos& qos)
 {
     if (&qos == &DATAWRITER_QOS_DEFAULT)
     {
         default_datawriter_qos_.setQos(DATAWRITER_QOS_DEFAULT, true);
-        return ReturnCode_t::RETCODE_OK;
+        return true;
     }
     else if (qos.checkQos())
     {
         default_datawriter_qos_.setQos(qos, true);
-        return ReturnCode_t::RETCODE_OK;
+        return true;
     }
-    return ReturnCode_t::RETCODE_INCONSISTENT_POLICY;
+    return false;
 }
 
 const fastrtps::WriterQos& PublisherImpl::get_default_datawriter_qos() const
@@ -403,7 +386,7 @@ bool PublisherImpl::copy_from_topic_qos(
 }
 */
 
-ReturnCode_t PublisherImpl::wait_for_acknowledgments(
+bool PublisherImpl::wait_for_acknowledgments(
         const Duration_t& max_wait)
 {
     Duration_t current = max_wait;
@@ -416,18 +399,18 @@ ReturnCode_t PublisherImpl::wait_for_acknowledgments(
             participant_->get_current_time(begin);
             if (!dw->wait_for_acknowledgments(current))
             {
-                return ReturnCode_t::RETCODE_ERROR;
+                return false;
             }
             // Check ellapsed time and decrement
             participant_->get_current_time(end);
             current = current - (end - begin);
             if (current < c_TimeZero)
             {
-                return ReturnCode_t::RETCODE_TIMEOUT;
+                return false;
             }
         }
     }
-    return ReturnCode_t::RETCODE_OK;
+    return true;
 }
 
 const DomainParticipant* PublisherImpl::get_participant() const

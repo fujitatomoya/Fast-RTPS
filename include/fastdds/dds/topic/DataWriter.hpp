@@ -21,15 +21,14 @@
 
 #include <fastdds/rtps/common/Time_t.h>
 #include <fastrtps/qos/DeadlineMissedStatus.h>
+#include <fastdds/dds/core/status/IncompatibleQosStatus.hpp>
 #include <fastdds/dds/core/status/BaseStatus.hpp>
-#include <fastrtps/types/TypesBase.h>
-
-using eprosima::fastrtps::types::ReturnCode_t;
 
 namespace eprosima {
 namespace fastrtps{
 
 class WriterQos;
+struct LivelinessLostStatus;
 class TopicAttributes;
 
 namespace rtps {
@@ -103,7 +102,7 @@ public:
      * @par Calling example:
      * @snippet fastrtps_example.cpp ex_PublisherWrite
      */
-    ReturnCode_t write(
+    bool write(
             void* data,
             const fastrtps::rtps::InstanceHandle_t& handle);
 
@@ -126,14 +125,14 @@ public:
     /**
      * Waits the current thread until all writers have received their acknowledgments.
      */
-    ReturnCode_t wait_for_acknowledgments(
+    bool wait_for_acknowledgments(
             const fastrtps::Duration_t& max_wait);
 
     /**
      * @brief Returns the offered deadline missed status
      * @param status Deadline missed status struct
      */
-    ReturnCode_t get_offered_deadline_missed_status(
+    void get_offered_deadline_missed_status(
             fastrtps::OfferedDeadlineMissedStatus& status);
 
     bool set_attributes(
@@ -144,7 +143,7 @@ public:
     /**
      * Establishes the WriterQos for this DataWriter.
      */
-    ReturnCode_t set_qos(
+    bool set_qos(
             const fastrtps::WriterQos& qos);
 
     /**
@@ -156,7 +155,7 @@ public:
      * Fills the WriterQos with the values of this DataWriter.
      * @return true
      */
-    ReturnCode_t get_qos(
+    bool get_qos(
             fastrtps::WriterQos& qos) const;
 
     /**
@@ -178,7 +177,7 @@ public:
     /**
      * Establishes the listener for this DataWriter.
      */
-    ReturnCode_t set_listener(
+    bool set_listener(
             DataWriterListener* listener);
 
     /* TODO
@@ -187,19 +186,19 @@ public:
             const fastrtps::rtps::InstanceHandle_t& handle);
     */
 
-    ReturnCode_t dispose(
+    bool dispose(
             void* data,
             const fastrtps::rtps::InstanceHandle_t& handle);
 
     bool dispose(
             void* data);
 
-    ReturnCode_t get_liveliness_lost_status(
+    bool get_liveliness_lost_status(
             LivelinessLostStatus& status);
 
     /* TODO
     bool get_offered_incompatible_qos_status(
-            OfferedIncompatibleQosStatus& status)
+            fastrtps::OfferedIncompatibleQosStatus& status)
     {
         // Not implemented
         (void)status;
@@ -209,7 +208,7 @@ public:
 
     const Publisher* get_publisher() const;
 
-    ReturnCode_t assert_liveliness();
+    bool assert_liveliness();
 
 private:
     DataWriterImpl* impl_;

@@ -23,9 +23,6 @@
 #include <fastrtps/fastrtps_dll.h>
 #include <fastdds/rtps/common/Time_t.h>
 #include <fastrtps/attributes/PublisherAttributes.h>
-#include <fastrtps/types/TypesBase.h>
-
-using eprosima::fastrtps::types::ReturnCode_t;
 
 namespace eprosima {
 namespace fastrtps {
@@ -73,7 +70,7 @@ public:
      * Retrieves the Publisher Qos.
      * @return true
      */
-    ReturnCode_t get_qos(
+    bool get_qos(
             PublisherQos& qos) const;
 
     /**
@@ -82,7 +79,7 @@ public:
      * @param qos
      * @return False if IMMUTABLE_POLICY or INCONSISTENT_POLICY occurs. True if updated.
      */
-    ReturnCode_t set_qos(
+    bool set_qos(
             const PublisherQos& qos);
 
     /**
@@ -95,7 +92,7 @@ public:
      * @param listener
      * @return true
      */
-    ReturnCode_t set_listener(
+    bool set_listener(
             PublisherListener* listener);
 
     /**
@@ -122,7 +119,7 @@ public:
      * may also dispose all instances.
      * @param writer
      */
-    ReturnCode_t delete_datawriter(
+    bool delete_datawriter(
             DataWriter* writer);
 
     /**
@@ -143,12 +140,6 @@ public:
      */
     bool get_datawriters(
         std::vector<DataWriter*>& writers) const;
-
-    /**
-     * This operation checks if the publisher has DataWriters
-     * @return true if the publisher has one or several DataWriters, false in other case
-     */
-    bool has_datawriters() const;
 
     /* TODO
     bool suspend_publications();
@@ -175,7 +166,7 @@ public:
      * @param max_wait
      * @return False if timedout. True otherwise.
      */
-    ReturnCode_t wait_for_acknowledgments(
+    bool wait_for_acknowledgments(
             const fastrtps::Duration_t& max_wait);
 
     /**
@@ -199,7 +190,7 @@ public:
      * if the set_default_datawriter_qos operation had never been called.
      * @param qos
      */
-    ReturnCode_t set_default_datawriter_qos(
+    bool set_default_datawriter_qos(
             const fastrtps::WriterQos& qos);
 
     /**
@@ -223,7 +214,7 @@ public:
      * @param qos Copy of the current default WriterQos.
      * @return Always true.
      */
-    ReturnCode_t get_default_datawriter_qos(
+    bool get_default_datawriter_qos(
             fastrtps::WriterQos& qos) const;
 
     /* TODO

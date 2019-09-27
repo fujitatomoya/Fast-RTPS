@@ -20,6 +20,7 @@
 
 #include <fastdds/rtps/common/MatchingInfo.h>
 #include <fastrtps/qos/LivelinessLostStatus.h>
+#include <fastdds/dds/core/status/BaseStatus.hpp>
 
 namespace eprosima{
 namespace fastrtps{
@@ -75,6 +76,19 @@ public:
     virtual void on_liveliness_lost(
             RTPSWriter* writer,
             const LivelinessLostStatus& status)
+    {
+        (void)writer;
+        (void)status;
+    }
+
+    /**
+     * @brief Method called when the livelivess of a writer is lost
+     * @param writer The writer
+     * @param status The liveliness lost status
+     */
+    virtual void on_liveliness_lost(
+            RTPSWriter* writer,
+            const fastdds::dds::LivelinessLostStatus& status)
     {
         (void)writer;
         (void)status;

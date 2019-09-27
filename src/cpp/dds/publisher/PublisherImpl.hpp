@@ -26,12 +26,9 @@
 
 #include <fastdds/dds/topic/DataWriterListener.hpp>
 #include <fastdds/dds/publisher/qos/PublisherQos.hpp>
-#include <fastrtps/types/TypesBase.h>
 
 #include <mutex>
 #include <map>
-
-using namespace eprosima::fastrtps::types;
 
 namespace eprosima {
 namespace fastrtps{
@@ -80,12 +77,12 @@ public:
 
     const PublisherQos& get_qos() const;
 
-    ReturnCode_t set_qos(
+    bool set_qos(
             const PublisherQos& qos);
 
     const PublisherListener* get_listener() const;
 
-    ReturnCode_t set_listener(
+    bool set_listener(
             PublisherListener* listener);
 
     DataWriter* create_datawriter(
@@ -93,7 +90,7 @@ public:
             const fastrtps::WriterQos& writer_qos,
             DataWriterListener* listener);
 
-    ReturnCode_t delete_datawriter(
+    bool delete_datawriter(
             DataWriter* writer);
 
     DataWriter* lookup_datawriter(
@@ -104,8 +101,6 @@ public:
 
     bool get_datawriters(
         std::vector<DataWriter*>& writers) const;
-
-    bool has_datawriters() const;
 
     /* TODO
     bool suspend_publications();
@@ -123,7 +118,7 @@ public:
     bool end_coherent_changes();
     */
 
-    ReturnCode_t wait_for_acknowledgments(
+    bool wait_for_acknowledgments(
             const fastrtps::Duration_t& max_wait);
 
     const DomainParticipant* get_participant() const;
@@ -132,7 +127,7 @@ public:
     bool delete_contained_entities();
     */
 
-    ReturnCode_t set_default_datawriter_qos(
+    bool set_default_datawriter_qos(
             const fastrtps::WriterQos& qos);
 
     const fastrtps::WriterQos& get_default_datawriter_qos() const;
@@ -199,7 +194,7 @@ private:
 
             void on_liveliness_lost(
                     DataWriter* writer,
-                    const LivelinessLostStatus& status) override;
+                    const fastdds::dds::LivelinessLostStatus& status) override;
 
             PublisherImpl* publisher_;
     } publisher_listener_;

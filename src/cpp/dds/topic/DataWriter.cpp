@@ -48,14 +48,14 @@ bool DataWriter::write(
     return impl_->write(data, params);
 }
 
-ReturnCode_t DataWriter::write(
+bool DataWriter::write(
             void* data,
             const rtps::InstanceHandle_t& handle)
 {
     return impl_->write(data, handle);
 }
 
-ReturnCode_t DataWriter::dispose(
+bool DataWriter::dispose(
         void* data,
         const rtps::InstanceHandle_t& handle)
 {
@@ -89,7 +89,7 @@ const rtps::WriterAttributes& DataWriter::get_attributes() const
     return impl_->get_attributes();
 }
 
-ReturnCode_t DataWriter::set_qos(
+bool DataWriter::set_qos(
         const WriterQos& qos)
 {
     return impl_->set_qos(qos);
@@ -100,14 +100,14 @@ const WriterQos& DataWriter::get_qos() const
     return impl_->get_qos();
 }
 
-ReturnCode_t DataWriter::get_qos(
+bool DataWriter::get_qos(
         WriterQos& qos) const
 {
     qos = impl_->get_qos();
-    return ReturnCode_t::RETCODE_OK;
+    return true;
 }
 
-ReturnCode_t DataWriter::set_listener(
+bool DataWriter::set_listener(
         DataWriterListener* listener)
 {
     return impl_->set_listener(listener);
@@ -134,25 +134,25 @@ const Publisher* DataWriter::get_publisher() const
     return impl_->get_publisher();
 }
 
-ReturnCode_t DataWriter::wait_for_acknowledgments(
+bool DataWriter::wait_for_acknowledgments(
         const Duration_t &max_wait)
 {
     return impl_->wait_for_acknowledgments(max_wait);
 }
 
-ReturnCode_t DataWriter::get_offered_deadline_missed_status(
+void DataWriter::get_offered_deadline_missed_status(
         OfferedDeadlineMissedStatus &status)
 {
-    return impl_->get_offered_deadline_missed_status(status);
+    impl_->get_offered_deadline_missed_status(status);
 }
 
-ReturnCode_t DataWriter::get_liveliness_lost_status(
-        LivelinessLostStatus& status)
+bool DataWriter::get_liveliness_lost_status(
+        fastdds::dds::LivelinessLostStatus& status)
 {
     return impl_->get_liveliness_lost_status(status);
 }
 
-ReturnCode_t DataWriter::assert_liveliness()
+bool DataWriter::assert_liveliness()
 {
     return impl_->assert_liveliness();
 }

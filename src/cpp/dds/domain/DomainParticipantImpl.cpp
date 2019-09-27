@@ -127,7 +127,7 @@ DomainParticipantImpl::~DomainParticipantImpl()
         subscribers_by_handle_.clear();
     }
 
-    if (rtps_participant_ != nullptr)
+    if(rtps_participant_ != nullptr)
     {
         RTPSDomain::removeRTPSParticipant(rtps_participant_);
     }
@@ -142,56 +142,40 @@ DomainParticipantImpl::~DomainParticipantImpl()
 }
 
 
-ReturnCode_t DomainParticipantImpl::delete_publisher(
+bool DomainParticipantImpl::delete_publisher(
         Publisher* pub)
 {
-    if (participant_ != pub->get_participant())
-    {
-        return ReturnCode_t::RETCODE_PRECONDITION_NOT_MET;
-    }
     std::lock_guard<std::mutex> lock(mtx_pubs_);
     auto pit = publishers_.find(pub);
 
     if (pit != publishers_.end() && pub->get_instance_handle() == pit->second->get_instance_handle())
     {
-        if (!pub->has_datawriters())
-        {
-            return ReturnCode_t::RETCODE_PRECONDITION_NOT_MET;
-        }
         pit->second->set_listener(nullptr);
         publishers_by_handle_.erase(publishers_by_handle_.find(pit->second->get_instance_handle()));
         delete pit->second;
         publishers_.erase(pit);
-        return ReturnCode_t::RETCODE_OK;
+        return true;
     }
 
-    return ReturnCode_t::RETCODE_ERROR;
+    return false;
 }
 
-ReturnCode_t DomainParticipantImpl::delete_subscriber(
+bool DomainParticipantImpl::delete_subscriber(
         Subscriber* sub)
 {
-    if (participant_ != sub->get_participant())
-    {
-        return ReturnCode_t::RETCODE_PRECONDITION_NOT_MET;
-    }
     std::lock_guard<std::mutex> lock(mtx_subs_);
     auto sit = subscribers_.find(sub);
 
     if (sit != subscribers_.end() && sub->get_instance_handle() == sit->second->get_instance_handle())
     {
-        if (!sub->has_datareaders())
-        {
-            return ReturnCode_t::RETCODE_PRECONDITION_NOT_MET;
-        }
         sit->second->set_listener(nullptr);
         subscribers_by_handle_.erase(subscribers_by_handle_.find(sit->second->get_instance_handle()));
         delete sit->second;
         subscribers_.erase(sit);
-        return ReturnCode_t::RETCODE_OK;
+        return true;
     }
 
-    return ReturnCode_t::RETCODE_ERROR;
+    return false;
 }
 
 const InstanceHandle_t& DomainParticipantImpl::get_instance_handle() const
@@ -209,34 +193,34 @@ Publisher* DomainParticipantImpl::create_publisher(
         const fastrtps::PublisherAttributes& att,
         PublisherListener* listen)
 {
-    if (att_.rtps.builtin.discovery_config.use_STATIC_EndpointDiscoveryProtocol)
+    if(att_.rtps.builtin.discovery_config.use_STATIC_EndpointDiscoveryProtocol)
     {
-        if (att.getUserDefinedID() <= 0)
+        if(att.getUserDefinedID() <= 0)
         {
             logError(PARTICIPANT,"Static EDP requires user defined Id");
             return nullptr;
         }
     }
 
-    if (!att.unicastLocatorList.isValid())
+    if(!att.unicastLocatorList.isValid())
     {
         logError(PARTICIPANT,"Unicast Locator List for Publisher contains invalid Locator");
         return nullptr;
     }
 
-    if (!att.multicastLocatorList.isValid())
+    if(!att.multicastLocatorList.isValid())
     {
         logError(PARTICIPANT," Multicast Locator List for Publisher contains invalid Locator");
         return nullptr;
     }
 
-    if (!att.remoteLocatorList.isValid())
+    if(!att.remoteLocatorList.isValid())
     {
         logError(PARTICIPANT,"Remote Locator List for Publisher contains invalid Locator");
         return nullptr;
     }
 
-    if (!qos.check_qos() || !att.qos.checkQos() || !att.topic.checkQos())
+    if(!qos.check_qos() || !att.qos.checkQos() || !att.topic.checkQos())
     {
         return nullptr;
     }
@@ -332,36 +316,33 @@ bool DomainParticipantImpl::delete_contained_entities()
 }
 */
 
-ReturnCode_t DomainParticipantImpl::assert_liveliness()
+bool DomainParticipantImpl::assert_liveliness()
 {
     if (rtps_participant_->wlp() != nullptr)
     {
-        if (rtps_participant_->wlp()->assert_liveliness_manual_by_participant())
-        {
-            return RETCODE_OK;
-        }
+        return rtps_participant_->wlp()->assert_liveliness_manual_by_participant();
     }
     else
     {
         logError(PARTICIPANT, "Invalid WLP, cannot assert liveliness of participant");
     }
-    return ReturnCode_t::RETCODE_ERROR;
+    return false;
 }
 
-ReturnCode_t DomainParticipantImpl::set_default_publisher_qos(
+bool DomainParticipantImpl::set_default_publisher_qos(
         const fastdds::dds::PublisherQos& qos)
 {
     if (&qos == &PUBLISHER_QOS_DEFAULT)
     {
         default_pub_qos_.set_qos(PUBLISHER_QOS_DEFAULT, true);
-        return ReturnCode_t::RETCODE_OK;
+        return true;
     }
     else if (qos.check_qos())
     {
         default_pub_qos_.set_qos(qos, true);
-        return ReturnCode_t::RETCODE_OK;
+        return true;
     }
-    return ReturnCode_t::RETCODE_INCONSISTENT_POLICY;
+    return false;
 }
 
 const fastdds::dds::PublisherQos& DomainParticipantImpl::get_default_publisher_qos() const
@@ -369,20 +350,20 @@ const fastdds::dds::PublisherQos& DomainParticipantImpl::get_default_publisher_q
     return default_pub_qos_;
 }
 
-ReturnCode_t DomainParticipantImpl::set_default_subscriber_qos(
+bool DomainParticipantImpl::set_default_subscriber_qos(
         const fastdds::dds::SubscriberQos& qos)
 {
     if (&qos == &SUBSCRIBER_QOS_DEFAULT)
     {
         default_sub_qos_.set_qos(SUBSCRIBER_QOS_DEFAULT, true);
-        return ReturnCode_t::RETCODE_OK;
+        return true;
     }
     else if (qos.check_qos())
     {
         default_sub_qos_.set_qos(qos, true);
-        return ReturnCode_t::RETCODE_OK;
+        return true;
     }
-    return ReturnCode_t::RETCODE_INCONSISTENT_POLICY;
+    return false;
 }
 
 const fastdds::dds::SubscriberQos& DomainParticipantImpl::get_default_subscriber_qos() const
@@ -462,7 +443,7 @@ bool DomainParticipantImpl::contains_entity(
     return false;
 }
 
-ReturnCode_t DomainParticipantImpl::get_current_time(
+bool DomainParticipantImpl::get_current_time(
         fastrtps::Time_t& current_time) const
 {
     auto now = std::chrono::system_clock::now();
@@ -474,7 +455,7 @@ ReturnCode_t DomainParticipantImpl::get_current_time(
     current_time.seconds = static_cast<int32_t>(seconds.count());
     current_time.nanosec = static_cast<uint32_t>(nanos.count());
 
-    return ReturnCode_t::RETCODE_OK;
+    return true;
 }
 
 const DomainParticipant* DomainParticipantImpl::get_participant() const
@@ -497,34 +478,34 @@ Subscriber* DomainParticipantImpl::create_subscriber(
         const fastrtps::SubscriberAttributes& att,
         SubscriberListener* listen)
 {
-    if (att_.rtps.builtin.discovery_config.use_STATIC_EndpointDiscoveryProtocol)
+    if(att_.rtps.builtin.discovery_config.use_STATIC_EndpointDiscoveryProtocol)
     {
-        if (att.getUserDefinedID() <= 0)
+        if(att.getUserDefinedID() <= 0)
         {
             logError(PARTICIPANT,"Static EDP requires user defined Id");
             return nullptr;
         }
     }
 
-    if (!att.unicastLocatorList.isValid())
+    if(!att.unicastLocatorList.isValid())
     {
         logError(PARTICIPANT,"Unicast Locator List for Subscriber contains invalid Locator");
         return nullptr;
     }
 
-    if (!att.multicastLocatorList.isValid())
+    if(!att.multicastLocatorList.isValid())
     {
         logError(PARTICIPANT," Multicast Locator List for Subscriber contains invalid Locator");
         return nullptr;
     }
 
-    if (!att.remoteLocatorList.isValid())
+    if(!att.remoteLocatorList.isValid())
     {
         logError(PARTICIPANT,"Output Locator List for Subscriber contains invalid Locator");
         return nullptr;
     }
 
-    if (!qos.check_qos() || !att.qos.checkQos() || !att.topic.checkQos())
+    if(!qos.check_qos() || !att.qos.checkQos() || !att.topic.checkQos())
     {
         return nullptr;
     }

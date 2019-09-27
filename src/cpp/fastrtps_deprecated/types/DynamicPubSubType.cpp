@@ -57,33 +57,33 @@ DynamicType_ptr DynamicPubSubType::GetDynamicType() const
     return dynamic_type_;
 }
 
-ReturnCode_t DynamicPubSubType::SetDynamicType(DynamicData_ptr pData)
+ResponseCode DynamicPubSubType::SetDynamicType(DynamicData_ptr pData)
 {
     if (dynamic_type_ == nullptr)
     {
         dynamic_type_ = pData->type_;
         UpdateDynamicTypeInfo();
-        return ReturnCode_t::RETCODE_OK;
+        return ResponseCode::RETCODE_OK;
     }
     else
     {
         logError(DYN_TYPES, "Error Setting the dynamic type. There is already a registered type");
-        return ReturnCode_t::RETCODE_BAD_PARAMETER;
+        return ResponseCode::RETCODE_BAD_PARAMETER;
     }
 }
 
-ReturnCode_t DynamicPubSubType::SetDynamicType(DynamicType_ptr pType)
+ResponseCode DynamicPubSubType::SetDynamicType(DynamicType_ptr pType)
 {
     if (dynamic_type_ == nullptr)
     {
         dynamic_type_ = pType;
         UpdateDynamicTypeInfo();
-        return ReturnCode_t::RETCODE_OK;
+        return ResponseCode::RETCODE_OK;
     }
     else
     {
         logError(DYN_TYPES, "Error Setting the dynamic type. There is already a registered type");
-        return ReturnCode_t::RETCODE_BAD_PARAMETER;
+        return ResponseCode::RETCODE_BAD_PARAMETER;
     }
 }
 
