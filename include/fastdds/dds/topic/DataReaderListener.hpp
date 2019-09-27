@@ -23,7 +23,7 @@
 #include <fastrtps/qos/DeadlineMissedStatus.h>
 #include <fastrtps/qos/LivelinessChangedStatus.h>
 #include <fastrtps/qos/SampleRejectedStatus.hpp>
-#include <fastrtps/rtps/common/MatchingInfo.h>
+#include <fastdds/rtps/common/MatchingInfo.h>
 #include <fastdds/dds/core/status/IncompatibleQosStatus.hpp>
 #include <fastdds/dds/core/status/BaseStatus.hpp>
 
